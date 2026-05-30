@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      let sessionParam = urlParams.get('session');
+      if (!sessionParam && window.location.hash) {
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        sessionParam = hashParams.get('session');
+      }
+      if (sessionParam) {
+        try {
+          let decoded = decodeURIComponent(sessionParam);
+          let parsed;
+          try {
+            parsed = JSON.parse(decoded);
+          } catch(e) {
+            parsed = JSON.parse(sessionParam);
+          }
+          if (parsed && (parsed.user || parsed.access_token)) {
+            const normalizedSession = {
+              access_token: parsed.access_token || parsed.token || "mock_token_" + Date.now(),
+              user: parsed.user || {
+                id: parsed.id || "mock_user_" + Date.now(),
+                email: parsed.email || "creator@diginatize.com",
+                user_metadata: parsed.user_metadata || {}
+              }
+            };
+            localStorage.setItem('mock_session', JSON.stringify(normalizedSession));
+          }
+        } catch (e) {
+          console.error('Failed to parse session param:', e);
+        }
+      }
+    })();
+  </script>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Diginatize Templates | Ascend Your Content</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700&amp;family=Manrope:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Pirata+One&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#f2ca50",
+            "on-secondary-fixed": "#001f24",
+            "surface-container-highest": "#353534",
+            "on-secondary": "#00363d",
+            "secondary-container": "#00e3fd",
+            "on-primary-fixed": "#241a00",
+            "surface-tint": "#e9c349",
+            "surface-container": "#201f1f",
+            "error": "#ffb4ab",
+            "on-primary-fixed-variant": "#574500",
+            "on-tertiary-container": "#344945",
+            "outline": "#99907c",
+            "tertiary-fixed": "#d0e8e1",
+            "on-tertiary": "#1f3430",
+            "on-surface-variant": "#d0c5af",
+            "inverse-surface": "#e5e2e1",
+            "on-surface": "#e5e2e1",
+            "surface-container-lowest": "#0e0e0e",
+            "on-secondary-fixed-variant": "#004f58",
+            "on-error": "#690005",
+            "inverse-primary": "#735c00",
+            "on-secondary-container": "#00616d",
+            "on-error-container": "#ffdad6",
+            "surface-dim": "#131313",
+            "inverse-on-surface": "#313030",
+            "error-container": "#93000a",
+            "tertiary": "#bcd4cd",
+            "primary-fixed-dim": "#e9c349",
+            "on-primary": "#3c2f00",
+            "secondary-fixed-dim": "#00daf3",
+            "tertiary-fixed-dim": "#b4ccc5",
+            "on-tertiary-fixed": "#091f1b",
+            "on-primary-container": "#554300",
+            "primary-container": "#d4af37",
+            "primary-fixed": "#ffe088",
+            "background": "#131313",
+            "on-background": "#e5e2e1",
+            "secondary-fixed": "#9cf0ff",
+            "outline-variant": "#4d4635",
+            "surface-container-high": "#2a2a2a",
+            "surface-bright": "#3a3939",
+            "surface": "#131313",
+            "secondary": "#bdf4ff",
+            "on-tertiary-fixed-variant": "#364b46",
+            "surface-container-low": "#1c1b1b",
+            "tertiary-container": "#a1b8b2",
+            "surface-variant": "#353534"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "section-gap": "160px",
+            "gutter": "24px",
+            "stack-sm": "8px",
+            "margin-safe": "5vw",
+            "stack-lg": "32px",
+            "stack-md": "16px"
+          },
+          "fontFamily": {
+            "body-lg": ["Manrope"],
+            "headline-lg": ["Epilogue"],
+            "headline-lg-mobile": ["Epilogue"],
+            "label-caps": ["JetBrains Mono"],
+            "headline-xl": ["Epilogue"],
+            "body-md": ["Manrope"],
+            "gothic": ["Pirata One", "serif"]
+          },
+          "fontSize": {
+            "body-lg": ["18px", {"lineHeight": "32px", "fontWeight": "400"}],
+            "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+            "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "300"}],
+            "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+            "headline-xl": ["72px", {"lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "300"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+  
+  <style>
+    .glass-card {
+      background: rgba(19, 19, 19, 0.4);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(242, 202, 80, 0.1);
+    }
+    .glass-card:hover {
+      border-color: rgba(242, 202, 80, 0.4);
+      box-shadow: 0 0 40px rgba(242, 202, 80, 0.05);
+    }
+    .gothic-text {
+      font-family: 'Pirata One', serif;
+      letter-spacing: 0.05em;
+    }
+    .glow-hover:hover {
+      box-shadow: 0 0 30px rgba(0, 227, 253, 0.3);
+    }
+    .fog-gradient {
+      background: linear-gradient(to bottom, transparent, #131313);
+    }
+
+    /* Modal show/hide transitions */
+    .modal-overlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content-container {
+      transform: scale(0.95) translateY(20px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-content-container:not(.h-full) {
+      max-height: 90vh;
+      overflow-y: auto !important;
+    }
+    .modal-overlay.active .modal-content-container {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Toasts layout */
+    #toast-container {
+      perspective: 1000px;
+    }
+    .toast-item {
+      animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      background: rgba(19, 19, 19, 0.9);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-left: 4px solid #f2ca50;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .toast-item.toast-blue {
+      border-left-color: #00daf3;
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(100%) scale(0.9); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary overflow-x-hidden font-body-md">
+
+  <!-- TopNavBar -->
+  <nav class="fixed top-0 w-full z-50 bg-surface/30 backdrop-blur-xl border-b border-primary/10 shadow-primary/5 shadow-2xl">
+    <div class="flex justify-between items-center max-w-7xl mx-auto px-gutter py-4">
+      <a href="code.html" id="nav-brand-logo" class="text-primary cursor-pointer text-4xl gothic-text tracking-tighter hover:opacity-95 transition-opacity" style="text-shadow: rgba(242, 202, 80, 0.3) 0px 0px 15px; display: flex; align-items: center; gap: 12px; text-decoration: none;">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrblYK1ah_cPjxJ7CmVRq0ZT-alo9KXSa0Q0UFgUglAmYy52UdEtI_3qdDRujGz1y0e0opWRzS8JrO2qQaCJUUaEh6LUOuHyVkhy-zQoEsNlDKaf0HD1CspJXljMoUcH9MaQAf6Nsxvd-uXsmPko5rI_ANN48eJAqCCeGQ_6K_exa-aPtLFwVdYobeL-9LsOWP5PVDzrdnyO0AQWlFJPzVPHuuPf25VdLBiqTcjXC6lWCO2Nu091g929gLaoIzaOTkrScmAgrTryob" alt="Diginatize Logo" class="h-8 w-auto object-contain rounded-full border border-primary/50 p-0.5">
+        <span class="">Diginatize</span>
+      </a>
+      
+      <div class="hidden md:flex gap-stack-lg items-center font-body-md text-body-md">
+        <a class="text-primary bg-white/5 border border-primary/20 px-3 py-1.5 rounded transition-all duration-300" href="templates.html">Templates</a>
+        <a class="text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 px-3 py-1.5 rounded" href="ai-reels.html">AI Reels</a>
+        <a class="text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 px-3 py-1.5 rounded" href="courses.html">Courses</a>
+        <a class="text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 px-3 py-1.5 rounded" href="other.html">Other</a>
+      </div>
+      
+      <div class="flex gap-4 items-center">
+
+
+        <div class="relative hidden md:inline-block">
+          <a href="sign-in.html" id="nav-login-btn" class="inline-flex items-center gap-1.5 font-label-caps text-label-caps text-on-surface-variant hover:text-primary border border-primary/20 hover:border-primary/50 px-4 py-2 rounded transition-all duration-200 uppercase" style="text-decoration:none;">
+            <span class="material-symbols-outlined text-base" style="font-size:16px;">lock_open</span>
+            Login
+          </a>
+          <span id="nav-login-badge" class="absolute -top-3 -right-3 px-1.5 py-0.5 rounded bg-primary text-on-primary text-[8px] font-bold font-label-caps tracking-wide animate-bounce shadow-[0_0_10px_rgba(242,202,80,0.4)] uppercase">10% Off</span>
+        </div>
+        <a href="code.html#showcase-section" id="nav-explore-btn" class="bg-primary text-on-primary px-6 py-2 font-label-caps text-label-caps uppercase scale-95 active:scale-90 transition-transform glow-hover inline-flex items-center justify-center" style="text-decoration: none;">explore</a>
+        
+        <button id="mobile-menu-toggle" class="md:hidden text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Title/Hero Section -->
+  <section class="relative pt-32 pb-16 flex items-center justify-center overflow-hidden border-b border-outline-variant/10">
+    <div class="absolute inset-0 z-0">
+      <img alt="Background" class="w-full h-full object-cover opacity-30" src="images/templates.png">
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="absolute bottom-0 left-0 w-full h-32 fog-gradient"></div>
+    </div>
+    <div class="relative z-10 text-center px-margin-safe max-w-4xl mx-auto space-y-4">
+      <span class="font-label-caps text-label-caps text-primary uppercase tracking-[0.3em]">Mastery Suite</span>
+      <h1 class="gothic-text text-6xl md:text-8xl text-primary leading-none">Templates</h1>
+      <p class="font-body-lg text-base text-on-surface-variant max-w-xl mx-auto tracking-wide">
+        Clean, structural layout hubs and beautiful dashboard foundations to organize, script, and launch your cohorts.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Category Grid -->
+  <section class="py-16 px-margin-safe max-w-7xl mx-auto space-y-10">
+    
+    <!-- Controls (Search & Sort) -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/5 pb-8">
+      <div class="flex gap-2">
+        <button id="tab-all-btn" class="category-filter-btn px-5 py-2 rounded-full text-xs font-label-caps uppercase text-primary border border-primary/25 bg-primary/10">All Templates</button>
+        <button id="tab-library-btn" class="hidden px-5 py-2 rounded-full text-xs font-label-caps uppercase text-on-surface-variant border border-white/5 hover:border-primary/40 flex items-center gap-1" style="display: none !important;">
+          <span class="material-symbols-outlined text-xs">folder_special</span>My Library
+        </button>
+      </div>
+
+      <div class="flex items-center gap-4 w-full md:w-auto">
+        <div class="relative w-full md:w-64">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+          <input id="search-input" type="text" class="w-full bg-surface-container-high/40 border border-primary/10 rounded-full pl-9 pr-4 py-2 text-xs text-on-surface focus:border-primary focus:ring-0 placeholder:text-on-surface-variant/45" placeholder="Filter layouts...">
+        </div>
+        
+        <select id="sort-select" class="bg-surface-container-high/40 border border-primary/10 rounded-full px-4 py-2 text-xs text-on-surface focus:border-primary focus:ring-0 cursor-pointer shrink-0">
+          <option value="default">Default Sort</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="templates-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Rendered dynamically via JS -->
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 relative overflow-hidden bg-surface-container-lowest/15 border-t border-outline-variant/10">
+    <div class="absolute inset-0 z-0 bg-surface">
+      <div id="bg-glow-ball" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[120px] rounded-full transition-transform duration-300"></div>
+    </div>
+    <div class="relative z-10 px-margin-safe max-w-4xl mx-auto text-center space-y-stack-md">
+      <h2 class="gothic-text text-5xl sm:text-6xl md:text-7xl text-on-surface mb-2">Join the Elite</h2>
+      <p class="text-sm sm:text-base md:text-body-lg text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+        Gain access to the inner circle of elite creators. No spam, only high-performance assets.
+      </p>
+      
+      <form id="cta-apply-form" class="mt-8 max-w-lg mx-auto flex flex-col sm:flex-row gap-4 items-center w-full px-4 sm:px-0">
+        <div class="relative w-full group">
+          <input id="cta-email-input" required class="w-full bg-surface-container-high/40 border border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/10 text-primary py-4 px-5 rounded-lg font-label-caps placeholder:text-on-surface-variant/30 transition-all duration-300 text-center sm:text-left text-sm" placeholder="YOUR EMAIL ADDRESS" type="email">
+        </div>
+        <button id="cta-submit-btn" class="w-full sm:w-auto whitespace-nowrap bg-primary text-on-primary px-8 py-4 rounded-lg font-label-caps text-label-caps uppercase transition-all duration-500 glow-hover flex items-center justify-center gap-2" type="submit">
+          <span>APPLY NOW</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full py-stack-lg bg-surface-container-lowest border-t border-outline-variant/20">
+    <div class="flex flex-col md:flex-row justify-between items-center px-margin-safe max-w-7xl mx-auto gap-stack-md">
+      <div class="font-headline-lg-mobile text-primary tracking-[0.2em] uppercase">Diginatize</div>
+      <div class="flex gap-stack-md font-label-caps text-label-caps">
+        <a class="text-on-surface-variant hover:text-primary transition-colors" href="terms.html">Terms of Service</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors" href="privacy.html">Privacy Policy</a>
+      </div>
+      <div class="font-label-caps text-label-caps text-on-surface-variant opacity-80">
+        © 2026 Diginatize. High-end AI assets for creators.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALS SYSTEM ==================== -->
+
+  <!-- Toast System -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-[100] flex flex-col gap-3 max-w-sm pointer-events-none"></div>
+
+
+
+  <!-- 2. Product Detail Modal -->
+  <div id="product-detail-modal" class="modal-overlay fixed inset-0 z-[70] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="modal-content-container glass-card w-full max-w-3xl rounded-xl relative border border-primary/20 shadow-2xl flex flex-col md:flex-row overflow-hidden modal-exclude">
+      <button id="detail-close-btn" class="absolute top-4 right-4 z-10 text-on-surface-variant hover:text-primary transition-colors bg-black/40 p-1.5 rounded-full">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+      <div class="w-full md:w-1/2 aspect-[4/5] bg-surface-container relative">
+        <img id="detail-img" src="" class="w-full h-full object-cover grayscale opacity-90" alt="Product Image">
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 right-6">
+          <span id="detail-badge" class="font-label-caps text-[10px] text-primary bg-primary/10 border border-primary/30 px-3 py-1 rounded-full uppercase tracking-widest">Templates</span>
+          <h4 id="detail-title" class="gothic-text text-4xl text-on-surface mt-3 leading-tight">Product Title</h4>
+        </div>
+      </div>
+      <div class="w-full md:w-1/2 p-8 flex flex-col justify-between space-y-6">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="flex text-primary">
+              <span class="material-symbols-outlined text-base">star</span>
+              <span class="material-symbols-outlined text-base">star</span>
+              <span class="material-symbols-outlined text-base">star</span>
+              <span class="material-symbols-outlined text-base">star</span>
+              <span class="material-symbols-outlined text-base">star_half</span>
+            </div>
+            <span id="detail-reviews" class="text-xs text-on-surface-variant font-label-caps">(42 reviews)</span>
+          </div>
+          <p id="detail-desc" class="text-sm text-on-surface-variant leading-relaxed">Detailed descriptions.</p>
+          <div class="grid grid-cols-2 gap-y-2 pt-2 border-t border-white/5 text-xs">
+            <span class="text-on-surface-variant font-label-caps uppercase tracking-wider" style="display: none !important;">Format:</span>
+            <span id="detail-format" class="text-on-surface text-right font-medium" style="display: none !important;">Notion</span>
+            <span class="text-on-surface-variant font-label-caps uppercase tracking-wider">File Size:</span>
+            <span id="detail-size" class="text-on-surface text-right font-medium">8 MB</span>
+            <span class="text-on-surface-variant font-label-caps uppercase tracking-wider" style="display: none !important;">License:</span>
+            <span id="detail-license" class="text-on-surface text-right font-medium" style="display: none !important;">Commercial</span>
+          </div>
+        </div>
+        <div class="pt-4 border-t border-white/5 flex items-center justify-between gap-4">
+          <div class="flex flex-col">
+            <span class="text-[10px] font-label-caps text-on-surface-variant uppercase tracking-widest">Investment</span>
+            <span id="detail-price" class="text-3xl font-bold text-primary">PKR 4,900</span>
+          </div>
+          <button id="detail-buy-btn" class="flex-1 bg-primary text-on-primary py-3 font-label-caps text-label-caps uppercase transition-all glow-hover flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-lg">download</span>
+            <span id="detail-buy-text">Download Masterpiece</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Checkout Modal -->
+  <div id="checkout-modal" class="modal-overlay fixed inset-0 z-[80] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="modal-content-container glass-card w-full max-w-md p-8 rounded-xl relative border border-primary/20 shadow-2xl modal-exclude">
+      <button id="checkout-close-btn" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+      <div class="mb-6 text-center">
+        <span class="font-label-caps text-[10px] text-primary uppercase tracking-widest">Secure Gateway</span>
+        <h3 class="gothic-text text-4xl text-on-surface mt-1 mb-2">Checkout</h3>
+        <div id="checkout-summary-card" class="bg-surface-container/50 border border-white/5 rounded-lg p-3 text-sm flex justify-between items-center">
+          <span id="checkout-item-name" class="font-medium text-on-surface">Asset Name</span>
+          <span id="checkout-item-price" class="font-bold text-primary">PKR 49</span>
+        </div>
+      </div>
+      <form id="checkout-form" class="space-y-5">
+        <div class="space-y-1">
+          <label class="font-label-caps text-[10px] text-primary/70 tracking-widest uppercase">Verification Email</label>
+          <input id="checkout-email" type="email" required class="w-full bg-surface-container-high/40 border border-primary/10 rounded px-4 py-2.5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all" placeholder="customer@domain.com">
+        </div>
+        <div class="space-y-1">
+          <label class="font-label-caps text-[10px] text-primary/70 tracking-widest uppercase">Card Number</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">credit_card</span>
+            <input id="checkout-card" type="text" required placeholder="0000 0000 0000 0000" maxlength="19" class="w-full bg-surface-container-high/40 border border-primary/10 rounded pl-10 pr-4 py-2.5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all font-mono">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-1">
+            <label class="font-label-caps text-[10px] text-primary/70 tracking-widest uppercase">Expiration Date</label>
+            <input id="checkout-expiry" type="text" required placeholder="MM/YY" maxlength="5" class="w-full bg-surface-container-high/40 border border-primary/10 rounded px-4 py-2.5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all font-mono">
+          </div>
+          <div class="space-y-1">
+            <label class="font-label-caps text-[10px] text-primary/70 tracking-widest uppercase">CVV Code</label>
+            <input id="checkout-cvv" type="password" required placeholder="•••" maxlength="3" class="w-full bg-surface-container-high/40 border border-primary/10 rounded px-4 py-2.5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all font-mono">
+          </div>
+        </div>
+        <button id="checkout-submit-btn" type="submit" class="w-full bg-primary text-on-primary py-3 font-label-caps text-label-caps uppercase transition-all glow-hover flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-sm">lock</span>
+          <span>Process Secure Acquisition</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Download Modal -->
+  <div id="download-modal" class="modal-overlay fixed inset-0 z-[90] bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="modal-content-container glass-card w-full max-w-md p-8 rounded-xl relative border border-primary/20 shadow-2xl flex flex-col items-center text-center modal-exclude">
+      <span class="material-symbols-outlined text-6xl text-primary animate-pulse mb-4">cloud_download</span>
+      <h3 class="gothic-text text-4xl text-on-surface">Acquiring Core</h3>
+      <p id="download-file-name" class="text-xs font-label-caps text-on-surface-variant tracking-wider mt-1 mb-6">File_Name.zip</p>
+      <div class="w-full bg-white/5 h-2.5 rounded-full overflow-hidden border border-white/5 relative">
+        <div id="download-progress-bar" class="h-full bg-gradient-to-r from-primary to-secondary-container transition-all duration-300 w-0"></div>
+      </div>
+      <div class="flex justify-between items-center w-full text-xs font-label-caps text-on-surface-variant mt-3">
+        <span id="download-status-txt">Connecting...</span>
+        <span id="download-percent-txt">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Mobile Drawer -->
+  <div id="mobile-menu-drawer" class="modal-overlay fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex justify-end">
+    <div class="modal-content-container glass-card w-3/4 max-w-sm h-full p-6 border-l border-primary/10 flex flex-col justify-between modal-exclude">
+      <div class="space-y-8">
+        <div class="flex justify-between items-center border-b border-white/5 pb-4">
+          <span class="gothic-text text-3xl text-primary">Diginatize</span>
+          <button id="mobile-menu-close" class="text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-2xl">close</span>
+          </button>
+        </div>
+        <div class="flex flex-col gap-4 font-body-lg text-lg">
+          <a class="text-primary px-4 py-2 hover:bg-white/5 rounded transition-all" href="templates.html">Templates</a>
+          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="ai-reels.html">AI Reels</a>
+          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="courses.html">Courses</a>
+          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="other.html">Other</a>
+          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all flex items-center gap-2" href="admin.html">
+            <span class="material-symbols-outlined text-base">admin_panel_settings</span>Admin Panel
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile Drawer Footer -->
+      <div class="border-t border-white/5 pt-5 space-y-3">
+        <a href="sign-in.html" class="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-on-surface border border-primary/20 hover:border-primary/40 py-3 font-label-caps text-label-caps uppercase rounded transition-all" style="text-decoration:none;"><span class="material-symbols-outlined" style="font-size:16px;">lock_open</span>Login</a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Synchronous Session Protection & Header Sync Fallback -->
+  <script>
+    (function() {
+      const mock = localStorage.getItem('mock_session');
+      // No redirect — shop pages are public. Only update nav if logged in.
+      if (!mock) return;
+      
+      let user = null;
+      try {
+        user = JSON.parse(mock).user;
+      } catch (e) {
+        localStorage.removeItem('mock_session');
+        return;
+      }
+
+      window.currentUser = user;
+
+      window.handleLogoutGlobal = function() {
+        localStorage.removeItem('mock_session');
+        const clearLocalRedirect = () => {
+          if (window.location.protocol === 'file:') {
+            window.location.href = 'code.html';
+          } else {
+            window.location.href = 'code.html';
+          }
+        };
+        if (window.supabaseClientInstance) {
+          window.supabaseClientInstance.auth.signOut().then(clearLocalRedirect).catch(clearLocalRedirect);
+        } else {
+          clearLocalRedirect();
+        }
+      };
+
+      function runSync() {
+        // Desktop Nav Update
+        const navLoginBtn = document.getElementById('nav-login-btn');
+        const loginBadge = document.getElementById('nav-login-badge');
+        if (loginBadge) loginBadge.remove();
+        if (navLoginBtn) {
+          const parent = navLoginBtn.parentElement;
+          if (parent) {
+            parent.classList.remove('hidden', 'md:inline-block');
+            parent.classList.add('inline-block');
+          }
+          navLoginBtn.outerHTML = `
+            <div id="nav-user-container" class="flex items-center gap-2 sm:gap-3">
+              <span class="hidden sm:inline-block text-xs font-label-caps text-primary/80 lowercase truncate max-w-[100px] md:max-w-[120px]" title="${user.email}">
+                ${user.email.split('@')[0]}
+              </span>
+              <button id="nav-logout-btn" onclick="window.handleLogoutGlobal()" class="inline-flex items-center gap-1 sm:gap-1.5 font-label-caps text-[10px] sm:text-label-caps text-error hover:text-red-400 border border-error/20 hover:border-error/50 px-2 py-1 sm:px-3 sm:py-2 rounded transition-all duration-200 uppercase" title="Logout">
+                <span class="material-symbols-outlined text-base" style="font-size:16px;">logout</span>
+                <span class="hidden sm:inline-block">Logout</span>
+              </button>
+            </div>
+          `;
+        }
+
+        // Mobile Nav Drawer Update
+        const drawerLoginBtn = document.querySelector('#mobile-menu-drawer a[href="sign-in.html"]');
+        if (drawerLoginBtn) {
+          drawerLoginBtn.outerHTML = `
+            <div id="drawer-user-container" class="space-y-3">
+              <div class="text-center py-1.5 border-b border-white/5 text-xs text-primary/80 lowercase truncate">
+                Logged in: ${user.email}
+              </div>
+              <button id="drawer-logout-btn" onclick="window.handleLogoutGlobal()" class="w-full flex items-center justify-center gap-2 bg-error/10 hover:bg-error/20 text-error border border-error/25 py-3 font-label-caps text-label-caps uppercase rounded transition-all">
+                <span class="material-symbols-outlined text-base" style="font-size:16px;">logout</span>
+                Logout
+              </button>
+            </div>
+          `;
+        }
+
+        // Setup Mobile Menu Drawer interaction fallback if not handled
+        const mobMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobMenuClose = document.getElementById('mobile-menu-close');
+        
+        if (mobMenuToggle) {
+          mobMenuToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const drawer = document.getElementById('mobile-menu-drawer');
+            if (drawer) drawer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          });
+        }
+        if (mobMenuClose) {
+          mobMenuClose.addEventListener('click', (e) => {
+            e.preventDefault();
+            const drawer = document.getElementById('mobile-menu-drawer');
+            if (drawer) drawer.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        }
+        const drawerOverlay = document.getElementById('mobile-menu-drawer');
+        if (drawerOverlay) {
+          drawerOverlay.addEventListener('click', (e) => {
+            if (e.target === drawerOverlay) {
+              drawerOverlay.classList.remove('active');
+              document.body.style.overflow = '';
+            }
+          });
+        }
+
+        // Intercept links to propagate the session in file:// environments
+        function propagateSessionToLinks() {
+          const session = localStorage.getItem('mock_session');
+          if (!session) return;
+          if (window.location.protocol === 'file:') {
+            document.querySelectorAll('a[href]').forEach(link => {
+              const href = link.getAttribute('href');
+              if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('javascript:')) {
+                try {
+                  const urlParts = href.split('?');
+                  const targetPage = urlParts[0];
+                  const existingParams = new URLSearchParams(urlParts[1] || '');
+                  existingParams.set('session', encodeURIComponent(session));
+                  const newHref = targetPage + '?' + existingParams.toString();
+                  if (link.getAttribute('href') !== newHref) {
+                    link.setAttribute('href', newHref);
+                  }
+                } catch (err) {
+                  console.warn('Failed to propagate session to link:', link, err);
+                }
+              }
+            });
+          }
+        }
+        
+        propagateSessionToLinks();
+        const observer = new MutationObserver(() => {
+          propagateSessionToLinks();
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+
+      if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        runSync();
+      } else {
+        document.addEventListener('DOMContentLoaded', runSync);
+      }
+    })();
+  </script>
+
+  <!-- ==================== JS SCRIPT CORE ==================== -->
+  <script type="module">
+    import { supabase } from './src/supabaseClient.js';
+    window.supabaseClientInstance = supabase;
+
+    // Non-blocking session check — products visible to everyone, login just unlocks discount pricing
+    let activeSession = null;
+    try {
+      const { data } = await supabase.auth.getSession();
+      activeSession = data?.session || null;
+    } catch(e) { activeSession = null; }
+
+    // Dynamic Unified Catalog Database Core
+    const DEFAULT_CATALOG = [
+      {
+        id: 'tpl-1',
+        title: 'Diginatize Slide Deck v1.0',
+        category: 'Templates',
+        categoryText: 'Mastery',
+        price: '$49',
+        rawPrice: 49,
+        size: '18.4 MB',
+        format: 'Figma / PowerPoint',
+        license: 'Commercial Use',
+        rating: 5,
+        reviews: 42,
+        description: 'A dark, dramatic slide template featuring customized layouts, atmospheric gradient backgrounds, and tight gothic headlines. Perfect for pitching premium courses, AI tools, or design initiatives.',
+        img: 'images/tpl-1.png'
+      },
+      {
+        id: 'tpl-2',
+        title: 'Minimalist Notion Hub',
+        category: 'Templates',
+        categoryText: 'Mastery',
+        price: '$29',
+        rawPrice: 29,
+        size: '4.2 MB',
+        format: 'Notion Template',
+        license: 'Personal Use',
+        rating: 4.8,
+        reviews: 19,
+        description: 'Organize your creative workflow with this streamlined Notion workspace. Includes section trackers for scriptwriting, asset pipelines, client contracts, and finance forecasting.',
+        img: 'images/tpl-2.png'
+      },
+      {
+        id: 'tpl-3',
+        title: 'Gothic UI Library',
+        category: 'Templates',
+        categoryText: 'Mastery',
+        price: '$39',
+        rawPrice: 39,
+        size: '34 MB',
+        format: 'Figma Library',
+        license: 'Commercial Use',
+        rating: 4.9,
+        reviews: 26,
+        description: 'A component kit crafted with deep atmosphere and sharp calligraphic curves. Features buttons, modals, input elements, and glowing shadow rules optimized for developers looking to wow users.',
+        img: 'images/templates.png'
+      },
+      {
+        id: 'reel-1',
+        title: 'Viral Hook Spark Pack',
+        category: 'AI Reels',
+        categoryText: 'Automation',
+        price: '$39',
+        rawPrice: 39,
+        size: '156 MB',
+        format: 'MP4 / Premiere Pro Project',
+        license: 'Commercial Use',
+        rating: 5,
+        reviews: 88,
+        description: 'Stop the scroll instantly. A bundle of 30 high-contrast kinetic typography templates and neon gold lighting effects pre-formatted for Instagram Reels, YouTube Shorts, and TikTok.',
+        img: 'images/reel-1.png'
+      },
+      {
+        id: 'reel-2',
+        title: 'Cinematic Lightning Prompt Kit',
+        category: 'AI Reels',
+        categoryText: 'Automation',
+        price: '$59',
+        rawPrice: 59,
+        size: '1.2 MB',
+        format: 'PDF / Text prompts',
+        license: 'Commercial Use',
+        rating: 4.9,
+        reviews: 31,
+        description: 'Master AI video generation. This prompt handbook covers Midjourney, Runway Gen-2, and Sora parameters to achieve consistent, deep dramatic landscapes, dark gold lighting, and atmospheric aesthetics.',
+        img: 'images/reels.png'
+      },
+      {
+        id: 'reel-3',
+        title: 'Kinetic Typography Presets',
+        category: 'AI Reels',
+        categoryText: 'Automation',
+        price: '$45',
+        rawPrice: 45,
+        size: '48 MB',
+        format: 'After Effects (.ffx)',
+        license: 'Commercial Use',
+        rating: 4.8,
+        reviews: 44,
+        description: 'High-energy typographical transitions with electric gold glow effects. Easy drag-and-drop presets for Premiere and After Effects projects.',
+        img: 'images/reels.png'
+      },
+      {
+        id: 'crs-1',
+        title: 'High-End Content Creation Masterclass',
+        category: 'Courses',
+        categoryText: 'Exclusive',
+        price: '$129',
+        rawPrice: 129,
+        size: '2.4 GB',
+        format: 'Video Lessons (MP4)',
+        license: 'Personal Cohort Access',
+        rating: 5,
+        reviews: 62,
+        description: 'Learn to design premium aesthetics, dramatic lighting sequences, and automate digital marketing models. A complete cohort masterclass containing 12 modules.',
+        img: 'images/crs-1.png'
+      },
+      {
+        id: 'crs-2',
+        title: 'Cohort Community Builder Template',
+        category: 'Courses',
+        categoryText: 'Exclusive',
+        price: '$79',
+        rawPrice: 79,
+        size: '12.8 MB',
+        format: 'Notion Dashboard',
+        license: 'Commercial Use',
+        rating: 4.9,
+        reviews: 29,
+        description: 'A Notion dashboard optimized for organizing learning cohorts, tracking pupil files, pricing metrics, and event structures.',
+        img: 'images/templates.png'
+      },
+      {
+        id: 'ast-1',
+        title: 'Golden Horizon Grain Overlays',
+        category: 'Creative Assets',
+        categoryText: 'Foundations',
+        price: '$19',
+        rawPrice: 19,
+        size: '480 MB',
+        format: 'MOV (ProRes) / MP4',
+        license: 'Commercial Use',
+        rating: 5,
+        reviews: 57,
+        description: 'Inject premium organic texture into your projects. 15 seamless looping 4K film grain and amber light leak overlays designed to be blended on top of raw footage to add instant atmospheric depth.',
+        img: 'images/ast-1.png'
+      },
+      {
+        id: 'ast-2',
+        title: 'High-End Audio Textures Vol 1',
+        category: 'Creative Assets',
+        categoryText: 'Foundations',
+        price: '$34',
+        rawPrice: 34,
+        size: '220 MB',
+        format: 'WAV (24-bit)',
+        license: 'Commercial Use',
+        rating: 4.7,
+        reviews: 25,
+        description: 'A curated collection of low-frequency drones, metallic swooshes, sub-bass hits, and high-frequency sparks designed to synchronize with Gothic transitions and lightning cuts.',
+        img: 'images/assets.png'
+      },
+      {
+        id: 'ast-3',
+        title: 'Retro Dust Leak Effects',
+        category: 'Creative Assets',
+        categoryText: 'Foundations',
+        price: '$25',
+        rawPrice: 25,
+        size: '310 MB',
+        format: 'Overlay files',
+        license: 'Commercial Use',
+        rating: 4.8,
+        reviews: 14,
+        description: 'Ethereal dust particle overlays floating through volumetric gold lighting shafts. Perfect for vintage aesthetic look and feel.',
+        img: 'images/assets.png'
+      },
+      {
+        id: 'tpl-4',
+        title: 'Dark Cinematic Portfolio',
+        category: 'Templates',
+        categoryText: 'Mastery',
+        price: '$55',
+        rawPrice: 55,
+        size: '12.4 MB',
+        format: 'Figma Layout',
+        license: 'Commercial Use',
+        rating: 5,
+        reviews: 18,
+        description: 'An premium, ultra-dark immersive portfolio website template crafted for professional creators, cinematic filmmakers, and high-end digital artists.',
+        img: 'images/templates.png'
+      },
+      {
+        id: 'reel-4',
+        title: 'Cyberpunk Neon Hook Pack',
+        category: 'AI Reels',
+        categoryText: 'Automation',
+        price: '$49',
+        rawPrice: 49,
+        size: '185 MB',
+        format: 'Premiere Pro Presets',
+        license: 'Commercial Use',
+        rating: 4.9,
+        reviews: 22,
+        description: 'Vibrant neon kinetic text templates designed with high impact motion lines. Instantly scale your viewer engagement on TikTok, Reels, and Shorts.',
+        img: 'images/reels.png'
+      },
+      {
+        id: 'crs-3',
+        title: 'Volumetric Cinematic Lighting Cohort',
+        category: 'Courses',
+        categoryText: 'Exclusive',
+        price: '$149',
+        rawPrice: 149,
+        size: '3.6 GB',
+        format: 'Video Lessons (MP4)',
+        license: 'Personal Cohort Access',
+        rating: 5,
+        reviews: 73,
+        description: 'Unlocks the secrets of volumetric dramatic shadows, moody ambient rendering, and dark HSL palette selection for premium digital product displays.',
+        img: 'images/templates.png'
+      },
+      {
+        id: 'ast-4',
+        title: 'Volumetric Soundscapes & Swooshes',
+        category: 'Creative Assets',
+        categoryText: 'Foundations',
+        price: '$29',
+        rawPrice: 29,
+        size: '180 MB',
+        format: 'WAV (24-bit)',
+        license: 'Commercial Use',
+        rating: 4.8,
+        reviews: 11,
+        description: 'Moody low-frequency hums and cinematic transition sweeps designed to integrate with high-end premium interface animations.',
+        img: 'images/assets.png'
+      }
+    ];
+
+    // Seed localStorage with defaults only if completely empty
+    function seedCatalogIfEmpty() {
+      let stored = localStorage.getItem('marketplace_catalog');
+      let parsed = null;
+      if (stored) {
+        try { parsed = JSON.parse(stored); } catch(e) { stored = null; }
+      }
+      if (!stored || !Array.isArray(parsed) || parsed.length === 0) {
+        const pkrCatalog = DEFAULT_CATALOG.map(p => {
+          const np = {...p};
+          if (np.price && np.price.startsWith('$')) np.price = np.price.replace('$', 'PKR ');
+          return np;
+        });
+        try { localStorage.setItem('marketplace_catalog', JSON.stringify(pkrCatalog)); } catch(e) {}
+      }
+    }
+    seedCatalogIfEmpty();
+
+    // Always re-read Templates from localStorage fresh (picks up admin-added products)
+    function getTemplatesData() {
+      let stored = localStorage.getItem('marketplace_catalog');
+      let parsed = null;
+      if (stored) {
+        try { parsed = JSON.parse(stored); } catch(e) { parsed = null; }
+      }
+      if (!Array.isArray(parsed) || parsed.length === 0) {
+        parsed = DEFAULT_CATALOG.map(p => { if(!p) return p; const np={...p}; if(np.price&&np.price.startsWith('$')) np.price=np.price.replace('$','PKR '); return np; });
+      }
+      // Resolve separately stored images
+      parsed = parsed.map(p => {
+        if (p && p.img && typeof p.img === 'string' && p.img.startsWith('img_')) {
+          const actualImg = localStorage.getItem(p.img);
+          if (actualImg) p.img = actualImg;
+        }
+        return p;
+      });
+      // Admin-added products (asset-custom-*) first, then base products
+      const adminProducts = parsed.filter(p => p && p.id && p.id.startsWith('asset-custom-') && p.category === 'Templates');
+      const baseProducts = parsed.filter(p => p && (!p.id || !p.id.startsWith('asset-custom-')) && p.category === 'Templates');
+      return [...adminProducts, ...baseProducts].filter(Boolean);
+    }
+
+    let selectedProduct = null;
+    let currentFilter = 'All';
+    let purchasedProductIds = [];
+
+    // Toast utility
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = `toast-item p-4 rounded-lg flex items-center justify-between gap-4 w-80 text-sm transition-all duration-300 relative overflow-hidden modal-exclude pointer-events-auto ${type === 'info' ? 'toast-blue' : 'toast-success'}`;
+      const icon = type === 'info' ? 'info' : 'check_circle';
+      const iconColor = type === 'info' ? 'text-secondary-fixed-dim' : 'text-primary';
+      toast.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined ${iconColor}">${icon}</span>
+          <span class="font-body-md text-on-surface">${message}</span>
+        </div>
+        <button class="text-on-surface-variant hover:text-on-surface transition-colors focus:outline-none flex items-center">
+          <span class="material-symbols-outlined text-lg">close</span>
+        </button>
+        <div class="absolute bottom-0 left-0 h-[2px] bg-primary transition-all duration-3000 w-full" style="transition-timing-function: linear; width: 0%;"></div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        const bar = toast.querySelector('div:last-child');
+        if (bar) bar.style.width = '100%';
+      }, 50);
+      toast.querySelector('button').addEventListener('click', () => {
+        toast.style.animation = 'fadeOut 0.3s forwards';
+        setTimeout(() => toast.remove(), 300);
+      });
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toast.style.animation = 'fadeOut 0.3s forwards';
+          setTimeout(() => toast.remove(), 300);
+        }
+      }, 3500);
+    }
+
+    // Modal helpers
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      if (!document.querySelector('.modal-overlay.active')) {
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Dynamic State Persistence Core
+    let currentUser = window.currentUser || null;
+
+    async function syncSession() {
+      const storedPurchases = localStorage.getItem('purchasedProductIds');
+      if (storedPurchases) {
+        purchasedProductIds = JSON.parse(storedPurchases);
+      }
+
+      // Check current Supabase auth state
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        currentUser = user;
+      } catch (err) {
+        console.warn('Supabase auth state check failed, likely due to inactive project:', err);
+      }
+
+      // Update Navbars dynamically
+      const navLoginBtn = document.getElementById('nav-login-btn');
+      const drawerLoginBtn = document.querySelector('#mobile-menu-drawer a[href="sign-in.html"]');
+
+      if (currentUser) {
+        // Desktop Nav: Show user email and a custom styled Sign Out button
+        const loginBadge = document.getElementById('nav-login-badge');
+        if (loginBadge) loginBadge.remove();
+        if (navLoginBtn) {
+          navLoginBtn.outerHTML = `
+            <div id="nav-user-container" class="hidden md:flex items-center gap-3">
+              <span class="text-xs font-label-caps text-primary/80 lowercase truncate max-w-[120px]" title="${currentUser.email}">
+                ${currentUser.email.split('@')[0]}
+              </span>
+              <button id="nav-logout-btn" class="inline-flex items-center gap-1.5 font-label-caps text-label-caps text-error hover:text-red-400 border border-error/20 hover:border-error/50 px-3 py-2 rounded transition-all duration-200 uppercase">
+                <span class="material-symbols-outlined text-base" style="font-size:16px;">logout</span>
+                Logout
+              </button>
+            </div>
+          `;
+          
+          document.getElementById('nav-logout-btn')?.addEventListener('click', handleLogout);
+        }
+
+        // Mobile Nav Drawer: Show user email and Logout button
+        if (drawerLoginBtn) {
+          drawerLoginBtn.outerHTML = `
+            <div id="drawer-user-container" class="space-y-3">
+              <div class="text-center py-1.5 border-b border-white/5 text-xs text-primary/80 lowercase truncate">
+                Logged in: ${currentUser.email}
+              </div>
+              <button id="drawer-logout-btn" class="w-full flex items-center justify-center gap-2 bg-error/10 hover:bg-error/20 text-error border border-error/25 py-3 font-label-caps text-label-caps uppercase rounded transition-all">
+                <span class="material-symbols-outlined text-base" style="font-size:16px;">logout</span>
+                Logout
+              </button>
+            </div>
+          `;
+
+          document.getElementById('drawer-logout-btn')?.addEventListener('click', handleLogout);
+        }
+      }
+    }
+
+    async function handleLogout() {
+      const { error } = await supabase.auth.signOut();
+      if (!error) {
+        showToast('Logged out successfully', 'info');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        showToast(error.message || 'Logout failed', 'error');
+      }
+    }
+
+
+
+    // Dynamic Render grids
+    const searchInput = document.getElementById('search-input');
+    const sortSelect = document.getElementById('sort-select');
+    const templatesGrid = document.getElementById('templates-grid');
+
+    searchInput.addEventListener('input', renderGrid);
+    sortSelect.addEventListener('change', renderGrid);
+
+    function getPriceDisplay(prod) {
+      if (currentUser) {
+        const discounted = (prod.rawPrice * 0.9).toFixed(1).replace(/\.0$/, '');
+        const symbol = prod.price.replace(/[0-9.,]/g, '').trim();
+        const displaySymbol = symbol === '$' ? '$' : symbol + ' ';
+        return `<span class="line-through text-on-surface-variant/60 mr-1.5">${prod.price}</span><span class="text-primary font-bold">${displaySymbol}${discounted}</span>`;
+      }
+      return `<span class="text-primary font-bold">${prod.price}</span>`;
+    }
+
+    function renderGrid() {
+      templatesGrid.innerHTML = '';
+      const query = searchInput.value.toLowerCase();
+      const sort = sortSelect.value;
+
+      let filtered = getTemplatesData().filter(prod => {
+        if (!prod) return false;
+        const title = (prod.title || '').toLowerCase();
+        const desc = (prod.description || '').toLowerCase();
+        const matchesQuery = title.includes(query) || desc.includes(query);
+        if (currentFilter === 'All') return matchesQuery;
+        return purchasedProductIds.includes(prod.id) && matchesQuery;
+      });
+
+      if (sort === 'price-asc') filtered.sort((a, b) => a.rawPrice - b.rawPrice);
+      else if (sort === 'price-desc') filtered.sort((a, b) => b.rawPrice - a.rawPrice);
+      else if (sort === 'rating') filtered.sort((a, b) => b.rating - a.rating);
+
+      if (filtered.length === 0) {
+        templatesGrid.innerHTML = `<div class="col-span-full py-16 text-center space-y-3"><span class="material-symbols-outlined text-5xl text-outline/40">filter_list_off</span><p class="font-body-lg text-on-surface-variant">No templates found.</p></div>`;
+        return;
+      }
+
+      filtered.forEach(prod => {
+        const card = document.createElement('div');
+        card.className = `glass-card group p-4 flex flex-col justify-between transition-all duration-300 relative rounded-lg modal-exclude cursor-pointer border border-primary/10`;
+        const isOwned = purchasedProductIds.includes(prod.id);
+        const btnText = 'Buy on WhatsApp';
+        const btnClass = isOwned ? 'bg-transparent text-primary border border-primary/45 hover:bg-primary/5' : 'bg-primary text-on-primary hover:glow-hover';
+
+        card.innerHTML = `
+          <div>
+            <div class="aspect-[5/4] mb-3 overflow-hidden bg-surface-container rounded relative">
+              <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale opacity-80 group-hover:opacity-100" src="${prod.img}" alt="${prod.title}" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#1a1500,#2a2500)';">
+              <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded text-[10px] font-bold font-label-caps border border-primary/20 flex items-center gap-1">${getPriceDisplay(prod)}</div>
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="font-label-caps text-[9px] text-primary/60 uppercase tracking-widest">${prod.categoryText}</span>
+                <span class="text-[10px] text-on-surface-variant/80 font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-xs text-primary">star</span>${prod.rating}</span>
+              </div>
+              <h4 class="font-headline-lg text-lg group-hover:text-primary transition-colors truncate">${prod.title}</h4>
+              <p class="font-body-md text-on-surface-variant text-xs line-clamp-2">${prod.description}</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <button class="view-detail-btn flex-1 text-center bg-white/5 hover:bg-white/10 text-on-surface-variant hover:text-on-surface py-2 rounded text-xs uppercase font-label-caps transition-colors">Details</button>
+            <button class="buy-action-btn flex-1 text-center ${btnClass} py-2 rounded text-xs uppercase font-label-caps transition-all">${btnText}</button>
+          </div>
+        `;
+
+        card.querySelector('.view-detail-btn').addEventListener('click', (e) => { e.stopPropagation(); triggerOpenDetail(prod); });
+        card.querySelector('.buy-action-btn').addEventListener('click', (e) => { e.stopPropagation(); handleBuyAction(prod); });
+        card.addEventListener('click', () => triggerOpenDetail(prod));
+        
+        templatesGrid.appendChild(card);
+      });
+    }
+
+    // Detail modal logic
+    const detailBuyBtn = document.getElementById('detail-buy-btn');
+    function triggerOpenDetail(prod) {
+      window.location.href = `product-details.html?id=${prod.id}`;
+    }
+    document.getElementById('detail-close-btn').addEventListener('click', () => closeModal('product-detail-modal'));
+    detailBuyBtn.addEventListener('click', () => {
+      closeModal('product-detail-modal');
+      handleBuyAction(selectedProduct);
+    });
+
+    // Buy action (Direct redirection to custom link if set, otherwise fallback to WhatsApp)
+    function handleBuyAction(prod) {
+      if (!prod) return;
+      
+      if (prod.redirectUrl) {
+        showToast("Redirecting to download portal...", "success");
+        setTimeout(function() {
+          window.open(prod.redirectUrl, "_blank");
+        }, 1000);
+      } else {
+        const phoneNumber = '923132021611';
+        const text = encodeURIComponent("Hi Diginatize, I am interested in purchasing this asset:\n\n* " + prod.title + " (" + prod.category + ")\n* Price: " + prod.price + "\n\nPlease let me know how to make the payment and access the asset. Thanks!");
+        const whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + text;
+        
+        showToast("Redirecting to WhatsApp for secure checkout...", "success");
+        setTimeout(function() {
+          window.open(whatsappUrl, "_blank");
+        }, 1000);
+      }
+    }
+
+    const checkoutForm = document.getElementById('checkout-form');
+    checkoutForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById('checkout-submit-btn');
+      const orig = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="animate-spin material-symbols-outlined text-sm">progress_activity</span> Processing Secure Acquisition...`;
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = orig;
+        if (!purchasedProductIds.includes(selectedProduct.id)) {
+          purchasedProductIds.push(selectedProduct.id);
+          localStorage.setItem('purchasedProductIds', JSON.stringify(purchasedProductIds));
+        }
+        checkoutForm.reset();
+        closeModal('checkout-modal');
+        renderGrid();
+        
+        if (selectedProduct.redirectUrl) {
+          showToast(`Asset authorized! Redirecting to secure portal...`, 'success');
+          setTimeout(() => {
+            window.open(selectedProduct.redirectUrl, '_blank');
+          }, 1500);
+        } else {
+          triggerSimulatedDownload(selectedProduct);
+        }
+      }, 1500);
+    });
+
+    // Form inputs formatting helpers
+    document.getElementById('checkout-card').addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, '').match(/.{1,4}/g);
+      e.target.value = val ? val.join(' ') : '';
+    });
+    document.getElementById('checkout-expiry').addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, '');
+      e.target.value = val.length >= 2 ? val.substring(0,2) + '/' + val.substring(2,4) : val;
+    });
+    document.getElementById('checkout-close-btn').addEventListener('click', () => closeModal('checkout-modal'));
+
+    // Download simulated process bar
+    function triggerSimulatedDownload(prod) {
+      const bar = document.getElementById('download-progress-bar');
+      const statusTxt = document.getElementById('download-status-txt');
+      const percentTxt = document.getElementById('download-percent-txt');
+      document.getElementById('download-file-name').textContent = `${prod.title.replace(/\s+/g, '_')}.zip (${prod.size})`;
+      
+      bar.style.width = '0%';
+      percentTxt.textContent = '0%';
+      statusTxt.textContent = 'Initiating decryptions...';
+      openModal('download-modal');
+
+      let progress = 0;
+      const statusStates = [
+        { limit: 25, text: 'Opening file decryption streams...' },
+        { limit: 50, text: 'Packaging core templates...' },
+        { limit: 80, text: 'Verifying SHA-256 blocks...' },
+        { limit: 100, text: 'Generating local receipt...' }
+      ];
+
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 9) + 4;
+        if (progress > 100) progress = 100;
+        bar.style.width = `${progress}%`;
+        percentTxt.textContent = `${progress}%`;
+        const state = statusStates.find(s => progress <= s.limit);
+        if (state) statusTxt.textContent = state.text;
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            closeModal('download-modal');
+            showToast(`Templates pack "${prod.title.toUpperCase()}" saved to local directory!`, 'success');
+            
+            // Physical file generation
+            const blob = new Blob([
+              `DIGINATIZE PREMIUM SUITE - RECEIPT\n`,
+              `=================================\n\n`,
+              `Acquired: ${prod.title}\n`,
+              `License: ${prod.license}\n`,
+              `Format: ${prod.format}\n\n`,
+              `Thank you for ascending your content with Diginatize!`
+            ], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${prod.title.toLowerCase().replace(/\s+/g, '_')}_receipt.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }, 600);
+        }
+      }, 1200 / 10);
+    }
+
+    // Filter controls
+    const tabAllBtn = document.getElementById('tab-all-btn');
+    const tabLibraryBtn = document.getElementById('tab-library-btn');
+    
+    tabAllBtn.addEventListener('click', () => {
+      tabAllBtn.classList.add('text-primary', 'bg-primary/10');
+      tabAllBtn.classList.remove('text-on-surface-variant');
+      tabLibraryBtn.classList.remove('text-primary', 'bg-primary/10');
+      tabLibraryBtn.classList.add('text-on-surface-variant');
+      currentFilter = 'All';
+      renderGrid();
+    });
+
+    tabLibraryBtn.addEventListener('click', () => {
+      tabLibraryBtn.classList.add('text-primary', 'bg-primary/10');
+      tabLibraryBtn.classList.remove('text-on-surface-variant');
+      tabAllBtn.classList.remove('text-primary', 'bg-primary/10');
+      tabAllBtn.classList.add('text-on-surface-variant');
+      currentFilter = 'Library';
+      renderGrid();
+    });
+
+    // Brand navigation
+    document.getElementById('nav-brand-logo').addEventListener('click', () => {
+      window.location.href = 'code.html';
+    });
+
+    // Mobile menu drawer
+    const drawer = document.getElementById('mobile-menu-drawer');
+    document.getElementById('mobile-menu-toggle').addEventListener('click', () => openModal('mobile-menu-drawer'));
+    document.getElementById('mobile-menu-close').addEventListener('click', () => closeModal('mobile-menu-drawer'));
+
+
+    // CTA newsletter
+    const ctaForm = document.getElementById('cta-apply-form');
+    ctaForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('cta-email-input').value;
+      if (!email.includes('@')) {
+        showToast("Please specify a valid email address.", "info");
+        return;
+      }
+      const btn = document.getElementById('cta-submit-btn');
+      const orig = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<span class="animate-spin material-symbols-outlined text-sm">progress_activity</span>...`;
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = orig;
+        document.getElementById('cta-email-input').value = '';
+        showToast("Application Submitted! Check your inbox.", "success");
+      }, 1000);
+    });
+
+    // Glow ball follow
+    document.addEventListener('mousemove', (e) => {
+      const mouseX = e.clientX / window.innerWidth;
+      const mouseY = e.clientY / window.innerHeight;
+      const glow = document.getElementById('bg-glow-ball');
+      if (glow) {
+        glow.style.transform = `translate(calc(-50% + ${mouseX * 20}px), calc(-50% + ${mouseY * 20}px))`;
+      }
+    });
+
+    // Real-time cross-tab sync: when admin saves products in another tab, re-render the grid
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'marketplace_catalog') {
+        renderGrid();
+      }
+    });
+
+    // Initialize Page
+    syncSession();
+    renderGrid();
+
+
+  </script>
+
+  <!-- BULLETPROOF FALLBACK: Renders products even if the module script above fails (CDN down, no internet, etc.) -->
+  <script>
+    (function() {
+      // Wait 300ms for the module to load. If grid is still empty, render it ourselves.
+      setTimeout(function() {
+        var grid = document.getElementById('templates-grid');
+        if (!grid || grid.children.length > 0) return; // Already rendered by module
+
+        var TEMPLATES = [
+          { id: 'tpl-1', title: 'Diginatize Slide Deck v1.0', categoryText: 'Mastery', price: 'PKR 49', rawPrice: 49, rating: 5, description: 'A dark, dramatic slide template for pitching premium courses, AI tools, or design initiatives.', img: 'images/tpl-1.png' },
+          { id: 'tpl-2', title: 'Minimalist Notion Hub', categoryText: 'Mastery', price: 'PKR 29', rawPrice: 29, rating: 4.8, description: 'Organize your creative workflow with this streamlined Notion workspace.', img: 'images/tpl-2.png' },
+          { id: 'tpl-3', title: 'Gothic UI Library', categoryText: 'Mastery', price: 'PKR 39', rawPrice: 39, rating: 4.9, description: 'A component kit crafted with deep atmosphere and sharp calligraphic curves.', img: 'images/templates.png' },
+          { id: 'tpl-4', title: 'Dark Cinematic Portfolio', categoryText: 'Mastery', price: 'PKR 55', rawPrice: 55, rating: 5, description: 'An ultra-dark immersive portfolio website template for professional creators.', img: 'images/templates.png' }
+        ];
+
+        // Also pull in any admin-added Templates from localStorage
+        try {
+          var stored = JSON.parse(localStorage.getItem('marketplace_catalog') || '[]');
+          var adminProds = stored.filter(function(p) { return p.id && p.id.startsWith('asset-custom-') && p.category === 'Templates'; });
+          // Resolve img_ references
+          adminProds = adminProds.map(function(p) {
+            if (p.img && p.img.startsWith('img_')) { var i = localStorage.getItem(p.img); if (i) p.img = i; }
+            return p;
+          });
+          if (adminProds.length > 0) TEMPLATES = adminProds.concat(TEMPLATES);
+        } catch(e) {}
+
+        TEMPLATES.forEach(function(prod) {
+          var buyUrl = prod.redirectUrl ? prod.redirectUrl : "https://wa.me/923132021611?text=" + encodeURIComponent("Hi Diginatize, I am interested in purchasing this asset:\n\n* " + prod.title + " (" + (prod.category || "Templates") + ")\n* Price: " + prod.price + "\n\nPlease let me know how to make the payment and access the asset. Thanks!");
+          var buyText = prod.redirectUrl ? "Download Now" : "Buy on WhatsApp";
+          var targetAttr = ' target="_blank"';
+          
+          var card = document.createElement('div');
+          card.className = 'glass-card group p-4 flex flex-col justify-between transition-all duration-300 relative rounded-lg cursor-pointer border border-primary/10';
+          card.innerHTML = [
+            '<div>',
+            '  <div class="aspect-[5/4] mb-3 overflow-hidden bg-surface-container rounded relative">',
+            '    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale opacity-80 group-hover:opacity-100" src="' + prod.img + '" alt="' + prod.title + '" onerror="this.style.display=\'none\';this.parentElement.style.background=\'linear-gradient(135deg,#1a1500,#2a2500)\'">',
+            '    <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded text-[10px] font-bold font-label-caps border border-primary/20"><span class="text-primary font-bold">' + prod.price + '</span></div>',
+            '  </div>',
+            '  <div class="space-y-1">',
+            '    <div class="flex justify-between items-center">',
+            '      <span class="font-label-caps text-[9px] text-primary/60 uppercase tracking-widest">' + prod.categoryText + '</span>',
+            '      <span class="text-[10px] text-on-surface-variant/80 font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-xs text-primary">star</span>' + prod.rating + '</span>',
+            '    </div>',
+            '    <h4 class="font-headline-lg text-lg group-hover:text-primary transition-colors truncate">' + prod.title + '</h4>',
+            '    <p class="font-body-md text-on-surface-variant text-xs line-clamp-2">' + prod.description + '</p>',
+            '  </div>',
+            '</div>',
+            '<div class="mt-4 pt-3 border-t border-white/5 flex gap-2">',
+            '  <a href="product-details.html?id=' + prod.id + '" class="flex-1 text-center bg-white/5 hover:bg-white/10 text-on-surface-variant hover:text-on-surface py-2 rounded text-xs uppercase font-label-caps transition-colors">Details</a>',
+            '  <a href="' + buyUrl + '"' + targetAttr + ' class="flex-1 text-center bg-primary text-on-primary hover:opacity-90 py-2 rounded text-xs uppercase font-label-caps transition-all">' + buyText + '</a>',
+            '</div>'
+          ].join('');
+          grid.appendChild(card);
+        });
+      }, 300);
+    })();
+  </script>
+</body>
+</html>
+
+

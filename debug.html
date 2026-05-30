@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Debug - localStorage Inspector</title>
+  <style>
+    body { background: #111; color: #eee; font-family: monospace; padding: 20px; }
+    h1 { color: #f2ca50; margin-bottom: 5px; }
+    h2 { color: #f2ca50; font-size: 14px; margin: 0 0 10px 0; }
+    .section { margin: 15px 0; padding: 15px; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; }
+    .ok { color: #4caf50; font-weight: bold; }
+    .warn { color: #ff9800; font-weight: bold; }
+    .err { color: #f44336; font-weight: bold; }
+    pre { white-space: pre-wrap; word-break: break-all; font-size: 11px; max-height: 250px; overflow-y: auto; background: #0d0d0d; padding: 10px; border-radius: 4px; }
+    button { background: #f2ca50; color: #000; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin: 4px; font-weight: bold; font-size: 12px; }
+    button:hover { background: #e0b83a; }
+    .danger { background: #c0392b; color: #fff; }
+    .danger:hover { background: #a93226; }
+    .success { background: #27ae60; color: #fff; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    td, th { border: 1px solid #333; padding: 6px 10px; text-align: left; }
+    th { background: #222; color: #f2ca50; }
+    tr:nth-child(even) { background: #151515; }
+    .admin-row { background: #1a1500 !important; border-left: 3px solid #f2ca50; }
+    .step { display: flex; align-items: flex-start; gap: 10px; margin: 8px 0; padding: 10px; background: #0d0d0d; border-radius: 6px; }
+    .step-num { background: #f2ca50; color: #000; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 13px; }
+    .step-text { font-size: 13px; line-height: 1.5; }
+    a.link { color: #f2ca50; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Diginatize — LocalStorage Diagnostic</h1>
+  <p style="color:#999;font-size:12px;">Auto-refreshes when admin saves products. Press Ctrl+Shift+R to hard-reload this page first.</p>
+
+  <div class="section">
+    <h2>📋 How to test the product flow</h2>
+    <div class="step"><div class="step-num">1</div><div class="step-text">First click <button onclick="clearAll()" class="danger" style="padding:2px 8px;">Clear ALL localStorage</button> — this resets everything to a clean state</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Sign in at <a href="sign-in.html" class="link">sign-in.html</a> (use any email + password)</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Open admin at <a href="admin.html" class="link">admin.html</a> → enter key "muzammil" → add a product with an image</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-text">Come back here and click <button onclick="refresh()" style="padding:2px 8px;">🔄 Refresh</button> — you should see your product listed below</div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-text">Visit the matching shop page — product should appear at the TOP of the list</div></div>
+  </div>
+
+  <div class="section">
+    <h2>📦 localStorage Status</h2>
+    <div id="status">Loading...</div>
+    <br>
+    <button onclick="refresh()">🔄 Refresh Status</button>
+    <button class="danger" onclick="clearCatalog()">🗑 Reset marketplace_catalog only</button>
+    <button class="danger" onclick="clearAll()">💀 Clear ALL localStorage</button>
+  </div>
+
+  <div class="section">
+    <h2>🆕 Admin-Added Products (admin_products key)</h2>
+    <div id="admin-table">Loading...</div>
+  </div>
+
+  <div class="section">
+    <h2>📚 All Products in marketplace_catalog</h2>
+    <div id="products-table">Loading...</div>
+  </div>
+
+  <div class="section">
+    <h2>🗝 All localStorage Keys</h2>
+    <pre id="all-keys">Loading...</pre>
+  </div>
+
+  <script>
+    function refresh() {
+      const statusEl = document.getElementById('status');
+      const tableEl = document.getElementById('products-table');
+      const adminTableEl = document.getElementById('admin-table');
+      const keysEl = document.getElementById('all-keys');
+
+      // All localStorage keys
+      const allKeys = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const val = localStorage.getItem(key);
+        allKeys.push({ key, size: val ? val.length : 0 });
+      }
+      const totalSize = allKeys.reduce((s, k) => s + k.size, 0);
+      keysEl.textContent = allKeys.map(k => `${k.key.padEnd(40)} ${(k.size/1024).toFixed(1).padStart(8)} KB`).join('\n') || '(empty)';
+      keysEl.textContent += `\n${'─'.repeat(55)}\nTotal used: ${(totalSize/1024).toFixed(1)} KB / ~5120 KB max`;
+
+      // Check admin_products
+      const adminStored = localStorage.getItem('admin_products');
+      let adminProds = [];
+      if (adminStored) {
+        try { adminProds = JSON.parse(adminStored) || []; } catch(e) { adminProds = []; }
+      }
+
+      if (adminProds.length === 0) {
+        adminTableEl.innerHTML = '<p class="warn">⚠ No admin-added products yet (admin_products key is empty or missing).</p>';
+      } else {
+        let ah = '<table><tr><th>ID</th><th>Title</th><th>Category</th><th>Price</th><th>Has Separate Image?</th></tr>';
+        adminProds.forEach(p => {
+          const imgKey = 'img_' + p.id;
+          const hasImg = !!localStorage.getItem(imgKey);
+          ah += `<tr class="admin-row"><td>${p.id}</td><td>${p.title}</td><td>${p.category}</td><td>${p.price}</td><td>${hasImg ? '<span class="ok">✅ YES (' + (localStorage.getItem(imgKey).length/1024).toFixed(0) + 'KB)</span>' : '<span class="err">❌ NO IMAGE</span>'}</td></tr>`;
+        });
+        ah += '</table>';
+        adminTableEl.innerHTML = ah;
+      }
+
+      // Check marketplace_catalog
+      const stored = localStorage.getItem('marketplace_catalog');
+      if (!stored) {
+        statusEl.innerHTML = '<span class="warn">⚠ marketplace_catalog is MISSING — it will be seeded with defaults on first shop page visit</span>';
+        tableEl.innerHTML = '<p class="warn">No catalog found yet.</p>';
+        return;
+      }
+
+      let parsed;
+      try {
+        parsed = JSON.parse(stored);
+      } catch(e) {
+        statusEl.innerHTML = `<span class="err">❌ marketplace_catalog is CORRUPT: ${e.message}</span>`;
+        tableEl.innerHTML = '<p class="err">Failed to parse catalog JSON.</p>';
+        return;
+      }
+
+      if (!Array.isArray(parsed)) {
+        statusEl.innerHTML = '<span class="err">❌ marketplace_catalog is not an array</span>';
+        tableEl.innerHTML = '';
+        return;
+      }
+
+      const adminInCatalog = parsed.filter(p => p.id && p.id.startsWith('asset-custom-'));
+      const baseInCatalog = parsed.filter(p => !p.id || !p.id.startsWith('asset-custom-'));
+
+      statusEl.innerHTML = `
+        <span class="ok">✅ marketplace_catalog found!</span><br>
+        Total products: <strong>${parsed.length}</strong> &nbsp;|&nbsp;
+        Admin-added: <strong style="color:#f2ca50">${adminInCatalog.length}</strong> &nbsp;|&nbsp;
+        Default: <strong>${baseInCatalog.length}</strong><br>
+        Catalog storage: <strong>${(stored.length/1024).toFixed(1)} KB</strong> out of ~5120 KB max
+        ${stored.length > 4 * 1024 * 1024 ? '<br><span class="err">⚠ WARNING: Approaching 5MB limit! Delete some products.</span>' : ''}
+      `;
+
+      let html = '<table><tr><th>ID</th><th>Title</th><th>Category</th><th>Price</th><th>Image</th><th>Type</th></tr>';
+      parsed.forEach(p => {
+        const isAdmin = p.id && p.id.startsWith('asset-custom-');
+        let imgInfo = '?';
+        if (!p.img) imgInfo = '<span class="err">MISSING</span>';
+        else if (p.img.startsWith('data:')) imgInfo = `<span class="ok">inline base64 (${(p.img.length/1024).toFixed(0)}KB)</span>`;
+        else if (p.img.startsWith('img_')) {
+          const ref = localStorage.getItem(p.img);
+          imgInfo = ref ? `<span class="ok">ref→${p.img} (${(ref.length/1024).toFixed(0)}KB)</span>` : `<span class="err">BROKEN REF: ${p.img}</span>`;
+        }
+        else imgInfo = `<span style="color:#aaa">URL: ${p.img.substring(0,30)}</span>`;
+        html += `<tr ${isAdmin ? 'class="admin-row"' : ''}>
+          <td>${p.id || '?'}</td>
+          <td>${p.title || '?'}</td>
+          <td>${p.category || '?'}</td>
+          <td>${p.price || '?'}</td>
+          <td>${imgInfo}</td>
+          <td>${isAdmin ? '<span style="color:#f2ca50;font-weight:bold">ADMIN-ADDED</span>' : 'default'}</td>
+        </tr>`;
+      });
+      html += '</table>';
+      tableEl.innerHTML = html;
+    }
+
+    function clearCatalog() {
+      if (confirm('Reset marketplace_catalog? This resets all products to defaults on next page visit.')) {
+        localStorage.removeItem('marketplace_catalog');
+        localStorage.removeItem('admin_products');
+        // Remove all img_ keys
+        const toRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          if (localStorage.key(i).startsWith('img_')) toRemove.push(localStorage.key(i));
+        }
+        toRemove.forEach(k => localStorage.removeItem(k));
+        alert('Catalog cleared.');
+        refresh();
+      }
+    }
+
+    function clearAll() {
+      if (confirm('⚠ DANGER: Clear ALL localStorage? You will be logged out and all data will be lost.')) {
+        localStorage.clear();
+        alert('Done. All localStorage cleared.');
+        refresh();
+      }
+    }
+
+    refresh();
+    window.addEventListener('storage', refresh);
+  </script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Sign In | Diginatize</title>
+  <meta name="description" content="Sign in to your Diginatize account and access premium AI digital assets.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700&amp;family=Manrope:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Pirata+One&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#f2ca50",
+            "surface-container": "#201f1f",
+            "surface-container-high": "#2a2a2a",
+            "surface-container-lowest": "#0e0e0e",
+            "on-surface": "#e5e2e1",
+            "on-surface-variant": "#d0c5af",
+            "outline-variant": "#4d4635",
+            "background": "#131313",
+            "surface": "#131313",
+            "on-primary": "#3c2f00",
+            "error": "#ffb4ab"
+          },
+          "fontFamily": {
+            "body-lg": ["Manrope"],
+            "label-caps": ["JetBrains Mono"],
+            "gothic": ["Pirata One", "serif"]
+          },
+          "fontSize": {
+            "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .glass-card {
+      background: rgba(19, 19, 19, 0.55);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(242, 202, 80, 0.12);
+    }
+    .gothic-text {
+      font-family: 'Pirata One', serif;
+      letter-spacing: 0.05em;
+    }
+    .glow-hover:hover {
+      box-shadow: 0 0 30px rgba(242, 202, 80, 0.25);
+    }
+    .input-field {
+      background-color: #0d0d0d !important;
+      border: 1px solid rgba(242, 202, 80, 0.2) !important;
+      color: #f5f2ed !important;
+      -webkit-text-fill-color: #f5f2ed !important;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .input-field:focus {
+      outline: none !important;
+      border-color: rgba(242, 202, 80, 0.7) !important;
+      box-shadow: 0 0 0 3px rgba(242, 202, 80, 0.1) !important;
+    }
+    .input-field::placeholder {
+      color: rgba(208, 197, 175, 0.45) !important;
+      -webkit-text-fill-color: rgba(208, 197, 175, 0.45) !important;
+    }
+    /* Fix browser autofill white background */
+    .input-field:-webkit-autofill,
+    .input-field:-webkit-autofill:hover,
+    .input-field:-webkit-autofill:focus,
+    .input-field:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0px 1000px #0d0d0d inset !important;
+      -webkit-text-fill-color: #f5f2ed !important;
+      border-color: rgba(242, 202, 80, 0.4) !important;
+      caret-color: #f5f2ed !important;
+    }
+    /* Subtle animated background */
+    .bg-grain {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+    .glow-ball {
+      background: radial-gradient(circle, rgba(242, 202, 80, 0.12) 0%, transparent 70%);
+      filter: blur(60px);
+    }
+    /* Divider line */
+    .divider-text {
+      position: relative;
+      text-align: center;
+    }
+    .divider-text::before,
+    .divider-text::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: calc(50% - 2rem);
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .divider-text::before { left: 0; }
+    .divider-text::after  { right: 0; }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface font-body-lg min-h-screen flex flex-col overflow-x-hidden selection:bg-primary selection:text-on-primary">
+
+  <!-- Ambient background -->
+  <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+    <div class="glow-ball absolute w-[700px] h-[700px] top-[-150px] left-1/2 -translate-x-1/2"></div>
+    <div class="bg-grain absolute inset-0"></div>
+  </div>
+
+  <!-- Minimal NavBar -->
+  <nav class="relative z-10 w-full border-b border-primary/10 bg-surface/20 backdrop-blur-xl">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="code.html" class="gothic-text text-primary text-3xl tracking-tighter hover:opacity-80 transition-opacity" style="text-shadow: rgba(242,202,80,0.3) 0 0 15px;">
+        Diginatize
+      </a>
+      <a href="sign-up.html" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase">
+        Create Account
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-16">
+    <div class="w-full max-w-md">
+
+      <!-- Header -->
+      <div class="text-center mb-8 flex flex-col items-center">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-[10px] font-label-caps tracking-widest uppercase mb-3 animate-pulse shadow-[0_0_15px_rgba(242,202,80,0.15)]">
+          <span class="material-symbols-outlined text-xs" style="font-size: 13px;">local_activity</span> 10% OFF Applied on Sign In
+        </div>
+        <h1 class="gothic-text text-5xl text-primary mt-1" style="text-shadow: rgba(242,202,80,0.2) 0 0 30px;">Sign In</h1>
+        <p class="text-on-surface-variant text-xs mt-2.5">Access your exclusive digital vault of premium creator assets.</p>
+      </div>
+
+      <!-- Glass Card Form -->
+      <div class="glass-card rounded-2xl p-8 shadow-2xl">
+        <!-- Success Alert Container -->
+        <div id="signin-success-alert" class="hidden text-center py-3.5 px-3 mb-5 rounded-lg bg-primary/10 border border-primary/20 text-primary text-xs font-semibold">
+          Your account has been created. Please check your email and verify your address before logging in.
+        </div>
+        <form id="sign-in-form" class="space-y-5" novalidate>
+
+          <!-- Email -->
+          <div class="space-y-1.5">
+            <label for="signin-email" class="font-label-caps text-[10px] text-primary/70 tracking-widest uppercase">
+              Email Address
+            </label>
+            <input
+              id="signin-email"
+              type="email"
+              required
+              autocomplete="email"
+              placeholder="name@example.com"
+              class="input-field w-full rounded-lg px-4 py-3 text-sm"
+            >
+          </div>
+
+          <!-- Password -->
+          <div class="space-y-1.5">
+            <label for="signin-password" class="font-label-caps text-[10px] text-primary/70 tracking-widest uppercase">
+              Password
+            </label>
+            <div class="relative">
+              <input
+                id="signin-password"
+                type="password"
+                required
+                autocomplete="current-password"
+                placeholder="••••••••"
+                class="input-field w-full rounded-lg px-4 py-3 pr-11 text-sm"
+              >
+              <button type="button" id="toggle-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-lg" id="eye-icon">visibility_off</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Error Message (shown on auth failure) -->
+          <p id="signin-error" class="hidden text-error text-xs font-medium text-center py-2 px-3 rounded-lg bg-error/10 border border-error/20"></p>
+
+          <!-- Submit -->
+          <button
+            id="signin-submit-btn"
+            type="submit"
+            class="glow-hover w-full bg-primary text-on-primary py-3.5 rounded-lg font-label-caps text-label-caps uppercase tracking-wider transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 mt-2"
+          >
+            <span id="signin-btn-text">Authorize Access</span>
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="divider-text my-6">
+          <span class="relative z-10 bg-transparent px-4 font-label-caps text-[10px] text-on-surface-variant/40 tracking-widest uppercase">
+            Or
+          </span>
+        </div>
+
+        <!-- Google Sign In Button -->
+        <button
+          id="google-signin-btn"
+          type="button"
+          class="w-full flex items-center justify-center gap-3 bg-white/5 border border-white/10 hover:border-primary/45 text-on-surface py-3.5 rounded-lg font-label-caps text-label-caps uppercase tracking-wider transition-all duration-200 active:scale-95 glow-hover mb-5"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <!-- Switch to Sign Up -->
+        <p class="text-center text-sm text-on-surface-variant">
+          New to the circle?
+          <a href="sign-up.html" class="text-primary hover:underline font-semibold ml-1">Create an account</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Fail-safe progressive login fallback in case ES modules fail (CORS, offline, etc.)
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const form = document.getElementById('sign-in-form');
+        if (form && !form.dataset.esmHandled) {
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signin-email').value.trim();
+            const password = document.getElementById('signin-password').value;
+            
+            const errorEl = document.getElementById('signin-error');
+            if (!email || !password) {
+              if (errorEl) {
+                errorEl.textContent = 'Please fill in both email and password.';
+                errorEl.classList.remove('hidden');
+              }
+              return;
+            }
+            
+            // Set mock session instantly!
+            const mockSession = {
+              access_token: "mock_token_" + Date.now(),
+              user: {
+                id: "mock_user_" + Date.now(),
+                email: email,
+                user_metadata: {}
+              }
+            };
+            localStorage.setItem('mock_session', JSON.stringify(mockSession));
+            
+            // Redirect to code.html
+            window.location.href = 'code.html';
+          });
+        }
+      }, 500); // 500ms delay to let ES modules register if available
+    });
+  </script>
+
+  <script type="module">
+    // ── Import Supabase client from shared config ────────────────────
+    import { supabase } from './src/supabaseClient.js';
+
+    // ── Helpers ─────────────────────────────────────────────────────
+    const form      = document.getElementById('sign-in-form');
+    if (form) form.dataset.esmHandled = "true";
+    const emailEl   = document.getElementById('signin-email');
+    const passEl    = document.getElementById('signin-password');
+    const errorEl   = document.getElementById('signin-error');
+    const submitBtn = document.getElementById('signin-submit-btn');
+
+    // ── Parse Query Parameters (Pre-fill Email and Show Success Message) ──
+    const urlParams = new URLSearchParams(window.location.search);
+    const emailParam = urlParams.get('email');
+    const registeredParam = urlParams.get('registered');
+
+    if (emailParam) {
+      emailEl.value = decodeURIComponent(emailParam);
+    }
+    if (registeredParam === 'true') {
+      const successAlert = document.getElementById('signin-success-alert');
+      if (successAlert) {
+        successAlert.classList.remove('hidden');
+      }
+    }
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.remove('hidden');
+    }
+    function clearError() {
+      errorEl.textContent = '';
+      errorEl.classList.add('hidden');
+    }
+    function setLoading(loading) {
+      submitBtn.disabled = loading;
+      if (loading) {
+        submitBtn.innerHTML = `
+          <span class="material-symbols-outlined animate-spin text-sm">progress_activity</span>
+          <span>Authenticating...</span>`;
+      } else {
+        submitBtn.innerHTML = `<span id="signin-btn-text">Authorize Access</span>`;
+      }
+    }
+
+    // ── Password visibility toggle ──────────────────────────────────
+    document.getElementById('toggle-password').addEventListener('click', () => {
+      const isHidden = passEl.type === 'password';
+      passEl.type = isHidden ? 'text' : 'password';
+      document.getElementById('eye-icon').textContent = isHidden ? 'visibility' : 'visibility_off';
+    });
+
+    // ── Sign In Form Submit ─────────────────────────────────────────
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearError();
+
+      const email    = emailEl.value.trim();
+      const password = passEl.value;
+
+      if (!email || !password) {
+        showError('Please fill in both email and password.');
+        return;
+      }
+
+      setLoading(true);
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      setLoading(false);
+
+      if (error) {
+        // Show Supabase error message under the form
+        showError(error.message || 'Sign in failed. Please try again.');
+        return;
+      }
+
+      // ✅ Only redirect when a real session exists
+      if (data.session) {
+        window.location.href = 'code.html?session=' + encodeURIComponent(JSON.stringify(data.session));
+      } else {
+        showError('Check your email and confirm your account before logging in.');
+      }
+    });
+
+    // ── Google Sign In OAuth Logic ──────────────────────────────────
+    const googleBtn = document.getElementById('google-signin-btn');
+    if (googleBtn) {
+      googleBtn.addEventListener('click', async () => {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin + (window.location.pathname.includes('sign-in.html') ? window.location.pathname.replace('sign-in.html', 'code.html') : '/code.html')
+          }
+        });
+        if (error) {
+          showError(error.message || 'Google authentication failed.');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
+
