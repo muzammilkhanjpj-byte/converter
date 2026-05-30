@@ -302,8 +302,8 @@
   <!-- Hero Section -->
   <section class="relative h-screen h-[100dvh] w-full flex items-center justify-center overflow-hidden bg-black">
     <div class="absolute inset-0 z-0 overflow-hidden">
-      <video id="hero-bg-video" autoplay muted loop playsinline poster="https://lh3.googleusercontent.com/aida-public/AB6AXuDcv_73cUXvm2ojysDmdbZTYSA7V7inmhvZtvbdUpoEhUZTNU4Y_wJgNxD9micN9q24vkqsZRqou0nCL_tu0aqfawNvKxE6Mc4f4F2fcb3nOKfIJ3wJUw6mmM-Xq3d9QbQDaHbh5GmclbmuXxLPWkLWDkg9FE3CsdD171Dma_LgeVHOKg-0Hyk8gYgXZ13BJZUMqGoJhpSysWWXFi3WbTRcfEPFpQazRfVrKYPM26gPGQqr6EScbaafiZ4qFps1DMrDY5VIChWwsnwg" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-none object-cover opacity-75 md:opacity-60" preload="none">
-        <!-- Source is loaded dynamically via JavaScript to prevent page rendering lag -->
+      <video autoplay muted loop playsinline poster="https://lh3.googleusercontent.com/aida-public/AB6AXuDcv_73cUXvm2ojysDmdbZTYSA7V7inmhvZtvbdUpoEhUZTNU4Y_wJgNxD9micN9q24vkqsZRqou0nCL_tu0aqfawNvKxE6Mc4f4F2fcb3nOKfIJ3wJUw6mmM-Xq3d9QbQDaHbh5GmclbmuXxLPWkLWDkg9FE3CsdD171Dma_LgeVHOKg-0Hyk8gYgXZ13BJZUMqGoJhpSysWWXFi3WbTRcfEPFpQazRfVrKYPM26gPGQqr6EScbaafiZ4qFps1DMrDY5VIChWwsnwg" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-none object-cover opacity-75 md:opacity-60">
+        <source src="pop.mp4" type="video/mp4">
       </video>
       <div class="absolute inset-0 bg-black/35 md:bg-black/50"></div>
       <div class="absolute bottom-0 left-0 w-full h-64 fog-gradient"></div>
@@ -1803,22 +1803,6 @@
 
     // Restore sessions
     syncSession();
-
-    // High-performance background video lazy loading
-    window.addEventListener('load', () => {
-      // Only load background video on PC (desktop) viewport widths to prevent mobile/tablet lagging
-      if (window.innerWidth >= 1024) {
-        const video = document.getElementById('hero-bg-video');
-        if (video) {
-          const source = document.createElement('source');
-          source.src = 'pop.mp4';
-          source.type = 'video/mp4';
-          video.appendChild(source);
-          video.load();
-          video.play().catch(err => console.log("Video auto-play prevented or failed:", err));
-        }
-      }
-    });
   </script>
 </body>
 </html>
