@@ -253,7 +253,6 @@
       <input id="gate-key-input" type="password" placeholder="ENTER ACCESS KEY" class="w-full bg-surface-container-high/40 border border-primary/25 rounded px-4 py-3 text-center tracking-widest text-primary focus:border-primary focus:ring-0 text-sm font-mono placeholder:text-on-surface-variant/30">
       <button id="gate-verify-btn" class="w-full bg-primary text-on-primary py-3 font-label-caps text-label-caps uppercase transition-all glow-hover">Verify Key</button>
     </div>
-    <p class="text-[10px] text-on-surface-variant/50 font-mono">HINT: Secret passkey is <span class="text-primary font-bold">muzammil</span></p>
   </div>
 
   <!-- Primary Console (Hidden until unlocked) -->
@@ -893,7 +892,7 @@
       });
       
       const mergedCatalog = [];
-      baseCatalog.forEach(p => {
+      DEFAULT_CATALOG.forEach(p => {
         if (p && p.id) {
           if (adminMap.has(p.id)) {
             mergedCatalog.push(adminMap.get(p.id));
