@@ -198,6 +198,16 @@
     @keyframes fadeOut {
       to { opacity: 0; transform: translateY(-20px); }
     }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .scrollbar-none {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
   </style>
 </head>
 <body class="bg-background text-on-background selection:bg-primary selection:text-on-primary overflow-x-hidden font-body-md">
@@ -205,7 +215,7 @@
   <!-- TopNavBar -->
   <nav class="fixed top-0 w-full z-50 bg-surface/30 backdrop-blur-xl border-b border-primary/10 shadow-primary/5 shadow-2xl">
     <div class="flex justify-between items-center max-w-7xl mx-auto px-gutter py-4">
-      <a href="code.html" id="nav-brand-logo" class="text-primary cursor-pointer text-4xl gothic-text tracking-tighter hover:opacity-95 transition-opacity" style="text-shadow: rgba(242, 202, 80, 0.3) 0px 0px 15px; display: flex; align-items: center; gap: 12px; text-decoration: none;">
+      <a href="code.html" id="nav-brand-logo" class="text-primary cursor-pointer text-2xl sm:text-3xl md:text-4xl gothic-text tracking-tighter hover:opacity-95 transition-opacity" style="text-shadow: rgba(242, 202, 80, 0.3) 0px 0px 15px; display: flex; align-items: center; gap: 12px; text-decoration: none;">
         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrblYK1ah_cPjxJ7CmVRq0ZT-alo9KXSa0Q0UFgUglAmYy52UdEtI_3qdDRujGz1y0e0opWRzS8JrO2qQaCJUUaEh6LUOuHyVkhy-zQoEsNlDKaf0HD1CspJXljMoUcH9MaQAf6Nsxvd-uXsmPko5rI_ANN48eJAqCCeGQ_6K_exa-aPtLFwVdYobeL-9LsOWP5PVDzrdnyO0AQWlFJPzVPHuuPf25VdLBiqTcjXC6lWCO2Nu091g929gLaoIzaOTkrScmAgrTryob" alt="Diginatize Logo" class="h-8 w-auto object-contain rounded-full border border-primary/50 p-0.5">
         <span class="">Diginatize</span>
       </a>
@@ -227,7 +237,7 @@
           </a>
           <span id="nav-login-badge" class="absolute -top-3 -right-3 px-1.5 py-0.5 rounded bg-primary text-on-primary text-[8px] font-bold font-label-caps tracking-wide animate-bounce shadow-[0_0_10px_rgba(242,202,80,0.4)] uppercase">10% Off</span>
         </div>
-        <a href="code.html#showcase-section" id="nav-explore-btn" class="bg-primary text-on-primary px-6 py-2 font-label-caps text-label-caps uppercase scale-95 active:scale-90 transition-transform glow-hover inline-flex items-center justify-center" style="text-decoration: none;">explore</a>
+        <a href="code.html#showcase-section" id="nav-explore-btn" class="bg-primary text-on-primary px-6 py-2 font-label-caps text-label-caps uppercase scale-95 active:scale-90 transition-transform glow-hover hidden md:inline-flex items-center justify-center" style="text-decoration: none;">explore</a>
         
         <button id="mobile-menu-toggle" class="md:hidden text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded">
           <span class="material-symbols-outlined text-3xl">menu</span>
@@ -237,50 +247,50 @@
   </nav>
 
   <!-- Title/Hero Section -->
-  <section class="relative pt-32 pb-16 flex items-center justify-center overflow-hidden border-b border-outline-variant/10">
+  <section class="relative pt-20 pb-6 sm:pt-28 sm:pb-8 flex items-center justify-center overflow-hidden border-b border-outline-variant/10">
     <div class="absolute inset-0 z-0">
       <img alt="Background" class="w-full h-full object-cover opacity-30" src="images/templates.png">
       <div class="absolute inset-0 bg-black/60"></div>
       <div class="absolute bottom-0 left-0 w-full h-32 fog-gradient"></div>
     </div>
-    <div class="relative z-10 text-center px-margin-safe max-w-4xl mx-auto space-y-4">
-      <span class="font-label-caps text-label-caps text-primary uppercase tracking-[0.3em]">Mastery Suite</span>
-      <h1 class="gothic-text text-6xl md:text-8xl text-primary leading-none">Templates</h1>
-      <p class="font-body-lg text-base text-on-surface-variant max-w-xl mx-auto tracking-wide">
+    <div class="relative z-10 text-center px-margin-safe max-w-4xl mx-auto space-y-3 sm:space-y-4">
+      <span class="font-label-caps text-[10px] sm:text-label-caps text-primary uppercase tracking-[0.3em]">Mastery Suite</span>
+      <h1 class="gothic-text text-3xl sm:text-5xl md:text-6xl text-primary leading-none">Templates</h1>
+      <p class="font-body-md text-xs sm:text-sm md:text-base text-on-surface-variant max-w-xl mx-auto tracking-wide leading-relaxed">
         Clean, structural layout hubs and beautiful dashboard foundations to organize, script, and launch your cohorts.
       </p>
     </div>
   </section>
 
   <!-- Interactive Category Grid -->
-  <section class="py-16 px-margin-safe max-w-7xl mx-auto space-y-10">
+  <section class="pt-6 pb-12 sm:pt-8 sm:pb-16 px-margin-safe max-w-7xl xl:max-w-[1440px] mx-auto space-y-6 sm:space-y-8">
     
     <!-- Controls (Search & Sort) -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/5 pb-8">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/5 pb-3 sm:pb-5">
       <div class="flex gap-2">
-        <button id="tab-all-btn" class="category-filter-btn px-5 py-2 rounded-full text-xs font-label-caps uppercase text-primary border border-primary/25 bg-primary/10">All Templates</button>
-        <button id="tab-library-btn" class="hidden px-5 py-2 rounded-full text-xs font-label-caps uppercase text-on-surface-variant border border-white/5 hover:border-primary/40 flex items-center gap-1" style="display: none !important;">
-          <span class="material-symbols-outlined text-xs">folder_special</span>My Library
+        <button id="tab-all-btn" class="category-filter-btn px-3 py-1 rounded-full text-[10px] sm:text-xs font-label-caps uppercase text-primary border border-primary/25 bg-primary/10">All Templates</button>
+        <button id="tab-library-btn" class="hidden px-3 py-1 rounded-full text-[10px] sm:text-xs font-label-caps uppercase text-on-surface-variant border border-white/5 hover:border-primary/40 flex items-center gap-1" style="display: none !important;">
+          <span class="material-symbols-outlined text-[10px] sm:text-xs">folder_special</span>My Library
         </button>
       </div>
 
-      <div class="flex items-center gap-4 w-full md:w-auto">
-        <div class="relative w-full md:w-64">
+      <div class="flex flex-row items-center gap-2 w-full md:w-auto">
+        <div class="relative flex-1 sm:w-64">
           <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
-          <input id="search-input" type="text" class="w-full bg-surface-container-high/40 border border-primary/10 rounded-full pl-9 pr-4 py-2 text-xs text-on-surface focus:border-primary focus:ring-0 placeholder:text-on-surface-variant/45" placeholder="Filter layouts...">
+          <input id="search-input" type="text" class="w-full bg-surface-container-high/40 border border-primary/10 rounded-full pl-8 pr-3 py-1.5 text-[11px] sm:text-xs text-on-surface focus:border-primary focus:ring-0 placeholder:text-on-surface-variant/45" placeholder="Filter layouts...">
         </div>
         
-        <select id="sort-select" class="bg-surface-container-high/40 border border-primary/10 rounded-full px-4 py-2 text-xs text-on-surface focus:border-primary focus:ring-0 cursor-pointer shrink-0">
-          <option value="default">Default Sort</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
+        <select id="sort-select" class="w-auto bg-surface-container-high/40 border border-primary/10 rounded-full pl-3 pr-8 py-1.5 text-[11px] sm:text-xs text-on-surface focus:border-primary focus:ring-0 cursor-pointer shrink-0">
+          <option value="default">Sort</option>
+          <option value="price-asc">PKR: Low-High</option>
+          <option value="price-desc">PKR: High-Low</option>
           <option value="rating">Top Rated</option>
         </select>
       </div>
     </div>
 
     <!-- Product Grid -->
-    <div id="templates-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div id="templates-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
       <!-- Rendered dynamically via JS -->
     </div>
   </section>
@@ -290,17 +300,17 @@
     <div class="absolute inset-0 z-0 bg-surface">
       <div id="bg-glow-ball" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[120px] rounded-full transition-transform duration-300"></div>
     </div>
-    <div class="relative z-10 px-margin-safe max-w-4xl mx-auto text-center space-y-stack-md">
-      <h2 class="gothic-text text-5xl sm:text-6xl md:text-7xl text-on-surface mb-2">Join the Elite</h2>
-      <p class="text-sm sm:text-base md:text-body-lg text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+    <div class="relative z-10 px-margin-safe max-w-4xl mx-auto text-center space-y-4">
+      <h2 class="gothic-text text-3xl sm:text-5xl md:text-7xl text-on-surface mb-2">Join the Elite</h2>
+      <p class="text-xs sm:text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
         Gain access to the inner circle of elite creators. No spam, only high-performance assets.
       </p>
       
-      <form id="cta-apply-form" class="mt-8 max-w-lg mx-auto flex flex-col sm:flex-row gap-4 items-center w-full px-4 sm:px-0">
+      <form id="cta-apply-form" class="mt-6 max-w-lg mx-auto flex flex-col sm:flex-row gap-3 items-center w-full px-4 sm:px-0">
         <div class="relative w-full group">
-          <input id="cta-email-input" required class="w-full bg-surface-container-high/40 border border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/10 text-primary py-4 px-5 rounded-lg font-label-caps placeholder:text-on-surface-variant/30 transition-all duration-300 text-center sm:text-left text-sm" placeholder="YOUR EMAIL ADDRESS" type="email">
+          <input id="cta-email-input" required class="w-full bg-surface-container-high/40 border border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/10 text-primary py-3 px-4 sm:py-4 sm:px-5 rounded-lg font-label-caps placeholder:text-on-surface-variant/30 transition-all duration-300 text-center sm:text-left text-xs sm:text-sm" placeholder="YOUR EMAIL ADDRESS" type="email">
         </div>
-        <button id="cta-submit-btn" class="w-full sm:w-auto whitespace-nowrap bg-primary text-on-primary px-8 py-4 rounded-lg font-label-caps text-label-caps uppercase transition-all duration-500 glow-hover flex items-center justify-center gap-2" type="submit">
+        <button id="cta-submit-btn" class="w-full sm:w-auto whitespace-nowrap bg-primary text-on-primary px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-label-caps text-[11px] sm:text-label-caps uppercase transition-all duration-500 glow-hover flex items-center justify-center gap-2" type="submit">
           <span>APPLY NOW</span>
         </button>
       </form>
@@ -335,7 +345,7 @@
         <span class="material-symbols-outlined text-2xl">close</span>
       </button>
       <div class="w-full md:w-1/2 aspect-[4/5] bg-surface-container relative">
-        <img id="detail-img" src="" class="w-full h-full object-cover grayscale opacity-90" alt="Product Image">
+        <img id="detail-img" src="" class="w-full h-full object-cover opacity-100" alt="Product Image">
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
         <div class="absolute bottom-6 left-6 right-6">
           <span id="detail-badge" class="font-label-caps text-[10px] text-primary bg-primary/10 border border-primary/30 px-3 py-1 rounded-full uppercase tracking-widest">Templates</span>
@@ -380,7 +390,7 @@
 
   <!-- 3. Checkout Modal -->
   <div id="checkout-modal" class="modal-overlay fixed inset-0 z-[80] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="modal-content-container glass-card w-full max-w-md p-8 rounded-xl relative border border-primary/20 shadow-2xl modal-exclude">
+    <div class="modal-content-container glass-card w-full max-w-md p-6 md:p-8 rounded-xl relative border border-primary/20 shadow-2xl overflow-y-auto max-h-[90vh] modal-exclude">
       <button id="checkout-close-btn" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors">
         <span class="material-symbols-outlined text-2xl">close</span>
       </button>
@@ -453,9 +463,6 @@
           <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="ai-reels.html">AI Reels</a>
           <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="courses.html">Courses</a>
           <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="other.html">Other</a>
-          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all flex items-center gap-2" href="admin.html">
-            <span class="material-symbols-outlined text-base">admin_panel_settings</span>Admin Panel
-          </a>
         </div>
       </div>
 
@@ -473,17 +480,15 @@
     (function() {
       const mock = localStorage.getItem('mock_session');
       // No redirect — shop pages are public. Only update nav if logged in.
-      if (!mock) return;
-      
       let user = null;
-      try {
-        user = JSON.parse(mock).user;
-      } catch (e) {
-        localStorage.removeItem('mock_session');
-        return;
+      if (mock) {
+        try {
+          user = JSON.parse(mock).user;
+          window.currentUser = user;
+        } catch (e) {
+          localStorage.removeItem('mock_session');
+        }
       }
-
-      window.currentUser = user;
 
       window.handleLogoutGlobal = function() {
         localStorage.removeItem('mock_session');
@@ -502,43 +507,45 @@
       };
 
       function runSync() {
-        // Desktop Nav Update
-        const navLoginBtn = document.getElementById('nav-login-btn');
-        const loginBadge = document.getElementById('nav-login-badge');
-        if (loginBadge) loginBadge.remove();
-        if (navLoginBtn) {
-          const parent = navLoginBtn.parentElement;
-          if (parent) {
-            parent.classList.remove('hidden', 'md:inline-block');
-            parent.classList.add('inline-block');
-          }
-          navLoginBtn.outerHTML = `
-            <div id="nav-user-container" class="flex items-center gap-2 sm:gap-3">
-              <span class="hidden sm:inline-block text-xs font-label-caps text-primary/80 lowercase truncate max-w-[100px] md:max-w-[120px]" title="${user.email}">
-                ${user.email.split('@')[0]}
-              </span>
-              <button id="nav-logout-btn" onclick="window.handleLogoutGlobal()" class="inline-flex items-center gap-1 sm:gap-1.5 font-label-caps text-[10px] sm:text-label-caps text-error hover:text-red-400 border border-error/20 hover:border-error/50 px-2 py-1 sm:px-3 sm:py-2 rounded transition-all duration-200 uppercase" title="Logout">
-                <span class="material-symbols-outlined text-base" style="font-size:16px;">logout</span>
-                <span class="hidden sm:inline-block">Logout</span>
-              </button>
-            </div>
-          `;
-        }
-
-        // Mobile Nav Drawer Update
-        const drawerLoginBtn = document.querySelector('#mobile-menu-drawer a[href="sign-in.html"]');
-        if (drawerLoginBtn) {
-          drawerLoginBtn.outerHTML = `
-            <div id="drawer-user-container" class="space-y-3">
-              <div class="text-center py-1.5 border-b border-white/5 text-xs text-primary/80 lowercase truncate">
-                Logged in: ${user.email}
+        if (user) {
+          // Desktop Nav Update
+          const navLoginBtn = document.getElementById('nav-login-btn');
+          const loginBadge = document.getElementById('nav-login-badge');
+          if (loginBadge) loginBadge.remove();
+          if (navLoginBtn) {
+            const parent = navLoginBtn.parentElement;
+            if (parent) {
+              parent.classList.remove('hidden', 'md:inline-block');
+              parent.classList.add('inline-block');
+            }
+            navLoginBtn.outerHTML = `
+              <div id="nav-user-container" class="flex items-center gap-2 sm:gap-3">
+                <span class="hidden sm:inline-block text-xs font-label-caps text-primary/80 lowercase truncate max-w-[100px] md:max-w-[120px]" title="${user.email}">
+                  ${user.email.split('@')[0]}
+                </span>
+                <button id="nav-logout-btn" onclick="window.handleLogoutGlobal()" class="inline-flex items-center gap-1 sm:gap-1.5 font-label-caps text-[10px] sm:text-label-caps text-error hover:text-red-400 border border-error/20 hover:border-error/50 px-2 py-1 sm:px-3 sm:py-2 rounded transition-all duration-200 uppercase" title="Logout">
+                  <span class="material-symbols-outlined text-base" style="font-size:16px;">logout</span>
+                  <span class="hidden sm:inline-block">Logout</span>
+                </button>
               </div>
-              <button id="drawer-logout-btn" onclick="window.handleLogoutGlobal()" class="w-full flex items-center justify-center gap-2 bg-error/10 hover:bg-error/20 text-error border border-error/25 py-3 font-label-caps text-label-caps uppercase rounded transition-all">
-                <span class="material-symbols-outlined text-base" style="font-size:16px;">logout</span>
-                Logout
-              </button>
-            </div>
-          `;
+            `;
+          }
+
+          // Mobile Nav Drawer Update
+          const drawerLoginBtn = document.querySelector('#mobile-menu-drawer a[href="sign-in.html"]');
+          if (drawerLoginBtn) {
+            drawerLoginBtn.outerHTML = `
+              <div id="drawer-user-container" class="space-y-3">
+                <div class="text-center py-1.5 border-b border-white/5 text-xs text-primary/80 lowercase truncate">
+                  Logged in: ${user.email}
+                </div>
+                <button id="drawer-logout-btn" onclick="window.handleLogoutGlobal()" class="w-full flex items-center justify-center gap-2 bg-error/10 hover:bg-error/20 text-error border border-error/25 py-3 font-label-caps text-label-caps uppercase rounded transition-all">
+                  <span class="material-symbols-outlined text-base" style="font-size:16px;">logout</span>
+                  Logout
+                </button>
+              </div>
+            `;
+          }
         }
 
         // Setup Mobile Menu Drawer interaction fallback if not handled
@@ -1062,29 +1069,37 @@
 
       filtered.forEach(prod => {
         const card = document.createElement('div');
-        card.className = `glass-card group p-4 flex flex-col justify-between transition-all duration-300 relative rounded-lg modal-exclude cursor-pointer border border-primary/10`;
+        card.className = `glass-card group p-2.5 sm:p-4 flex flex-col justify-between transition-all duration-500 relative rounded-xl modal-exclude cursor-pointer border border-primary/10 hover:shadow-[0_15px_30px_rgba(242,202,80,0.08)] hover:-translate-y-1`;
         const isOwned = purchasedProductIds.includes(prod.id);
         const btnText = 'Buy on WhatsApp';
-        const btnClass = isOwned ? 'bg-transparent text-primary border border-primary/45 hover:bg-primary/5' : 'bg-primary text-on-primary hover:glow-hover';
+        const btnClass = isOwned 
+          ? 'bg-transparent text-primary border border-primary/45 hover:bg-primary/5' 
+          : 'bg-gradient-to-r from-primary via-[#ffd75f] to-primary text-on-primary hover:shadow-[0_0_20px_rgba(242,202,80,0.3)]';
 
         card.innerHTML = `
           <div>
-            <div class="aspect-[5/4] mb-3 overflow-hidden bg-surface-container rounded relative">
-              <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale opacity-80 group-hover:opacity-100" src="${prod.img}" alt="${prod.title}" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#1a1500,#2a2500)';">
-              <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded text-[10px] font-bold font-label-caps border border-primary/20 flex items-center gap-1">${getPriceDisplay(prod)}</div>
+            <div class="aspect-[5/4] mb-3 overflow-hidden bg-surface-container rounded-lg relative border border-white/5 group-hover:border-primary/30 transition-all duration-300">
+              <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-95 group-hover:opacity-100" src="${prod.img}" alt="${prod.title}" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#1a1500,#2a2500)';">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 opacity-60 group-hover:opacity-30 transition-opacity duration-300"></div>
+              <div class="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-gradient-to-r from-primary/95 to-surface-container-high/95 text-on-primary shadow-[0_0_10px_rgba(242,202,80,0.25)] backdrop-blur-md px-2 py-0.5 rounded text-[8px] sm:text-[10px] font-bold font-label-caps border border-primary/30 flex items-center gap-1">${getPriceDisplay(prod)}</div>
             </div>
             <div class="space-y-1">
               <div class="flex justify-between items-center">
-                <span class="font-label-caps text-[9px] text-primary/60 uppercase tracking-widest">${prod.categoryText}</span>
-                <span class="text-[10px] text-on-surface-variant/80 font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-xs text-primary">star</span>${prod.rating}</span>
+                <span class="inline-flex items-center gap-1">
+                  <span class="w-1 h-1 rounded-full bg-primary/80 animate-pulse"></span>
+                  <span class="font-label-caps text-[8px] sm:text-[9px] text-primary/80 uppercase tracking-widest">${prod.categoryText}</span>
+                </span>
+                <span class="text-[8px] sm:text-[10px] text-primary bg-white/5 border border-white/10 px-1.5 py-0.5 rounded font-semibold flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-[10px] sm:text-xs text-primary">star</span>${prod.rating}
+                </span>
               </div>
-              <h4 class="font-headline-lg text-lg group-hover:text-primary transition-colors truncate">${prod.title}</h4>
-              <p class="font-body-md text-on-surface-variant text-xs line-clamp-2">${prod.description}</p>
+              <h4 class="font-headline-lg text-sm sm:text-lg group-hover:text-primary transition-colors truncate h-6 leading-none pt-1">${prod.title}</h4>
+              <p class="font-body-md text-on-surface-variant text-[10px] sm:text-xs line-clamp-2 leading-relaxed opacity-70">${prod.description}</p>
             </div>
           </div>
-          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
-            <button class="view-detail-btn flex-1 text-center bg-white/5 hover:bg-white/10 text-on-surface-variant hover:text-on-surface py-2 rounded text-xs uppercase font-label-caps transition-colors">Details</button>
-            <button class="buy-action-btn flex-1 text-center ${btnClass} py-2 rounded text-xs uppercase font-label-caps transition-all">${btnText}</button>
+          <div class="mt-3 pt-2.5 sm:mt-4 sm:pt-3 border-t border-white/5 flex flex-col gap-1.5 sm:gap-2">
+            <button class="view-detail-btn w-full text-center bg-white/5 border border-white/10 hover:border-primary/40 hover:bg-primary/5 text-on-surface py-1.5 sm:py-2 rounded text-[10px] sm:text-xs uppercase font-label-caps font-semibold transition-all">Details</button>
+            <button class="buy-action-btn w-full text-center ${btnClass} py-1.5 sm:py-2 rounded text-[10px] sm:text-xs uppercase font-label-caps font-semibold transition-all active:scale-98">${btnText}</button>
           </div>
         `;
 
@@ -1228,33 +1243,44 @@
     const tabAllBtn = document.getElementById('tab-all-btn');
     const tabLibraryBtn = document.getElementById('tab-library-btn');
     
-    tabAllBtn.addEventListener('click', () => {
-      tabAllBtn.classList.add('text-primary', 'bg-primary/10');
-      tabAllBtn.classList.remove('text-on-surface-variant');
-      tabLibraryBtn.classList.remove('text-primary', 'bg-primary/10');
-      tabLibraryBtn.classList.add('text-on-surface-variant');
-      currentFilter = 'All';
-      renderGrid();
-    });
+    if (tabAllBtn && tabLibraryBtn) {
+      tabAllBtn.addEventListener('click', () => {
+        tabAllBtn.classList.add('text-primary', 'bg-primary/10');
+        tabAllBtn.classList.remove('text-on-surface-variant');
+        tabLibraryBtn.classList.remove('text-primary', 'bg-primary/10');
+        tabLibraryBtn.classList.add('text-on-surface-variant');
+        currentFilter = 'All';
+        renderGrid();
+      });
 
-    tabLibraryBtn.addEventListener('click', () => {
-      tabLibraryBtn.classList.add('text-primary', 'bg-primary/10');
-      tabLibraryBtn.classList.remove('text-on-surface-variant');
-      tabAllBtn.classList.remove('text-primary', 'bg-primary/10');
-      tabAllBtn.classList.add('text-on-surface-variant');
-      currentFilter = 'Library';
-      renderGrid();
-    });
+      tabLibraryBtn.addEventListener('click', () => {
+        tabLibraryBtn.classList.add('text-primary', 'bg-primary/10');
+        tabLibraryBtn.classList.remove('text-on-surface-variant');
+        tabAllBtn.classList.remove('text-primary', 'bg-primary/10');
+        tabAllBtn.classList.add('text-on-surface-variant');
+        currentFilter = 'Library';
+        renderGrid();
+      });
+    }
 
     // Brand navigation
-    document.getElementById('nav-brand-logo').addEventListener('click', () => {
-      window.location.href = 'code.html';
-    });
+    const brandLogo = document.getElementById('nav-brand-logo');
+    if (brandLogo) {
+      brandLogo.addEventListener('click', () => {
+        window.location.href = 'code.html';
+      });
+    }
 
     // Mobile menu drawer
     const drawer = document.getElementById('mobile-menu-drawer');
-    document.getElementById('mobile-menu-toggle').addEventListener('click', () => openModal('mobile-menu-drawer'));
-    document.getElementById('mobile-menu-close').addEventListener('click', () => closeModal('mobile-menu-drawer'));
+    const mobMenuToggleBtn = document.getElementById('mobile-menu-toggle');
+    const mobMenuCloseBtn = document.getElementById('mobile-menu-close');
+    if (mobMenuToggleBtn) {
+      mobMenuToggleBtn.addEventListener('click', () => openModal('mobile-menu-drawer'));
+    }
+    if (mobMenuCloseBtn) {
+      mobMenuCloseBtn.addEventListener('click', () => closeModal('mobile-menu-drawer'));
+    }
 
 
     // CTA newsletter
@@ -1335,25 +1361,29 @@
           var targetAttr = ' target="_blank"';
           
           var card = document.createElement('div');
-          card.className = 'glass-card group p-4 flex flex-col justify-between transition-all duration-300 relative rounded-lg cursor-pointer border border-primary/10';
+          card.className = 'glass-card group p-2.5 sm:p-4 flex flex-col justify-between transition-all duration-500 relative rounded-xl cursor-pointer border border-primary/10 hover:shadow-[0_15px_30px_rgba(242,202,80,0.08)] hover:-translate-y-1';
           card.innerHTML = [
             '<div>',
-            '  <div class="aspect-[5/4] mb-3 overflow-hidden bg-surface-container rounded relative">',
-            '    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale opacity-80 group-hover:opacity-100" src="' + prod.img + '" alt="' + prod.title + '" onerror="this.style.display=\'none\';this.parentElement.style.background=\'linear-gradient(135deg,#1a1500,#2a2500)\'">',
-            '    <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded text-[10px] font-bold font-label-caps border border-primary/20"><span class="text-primary font-bold">' + prod.price + '</span></div>',
+            '  <div class="aspect-[5/4] mb-3 overflow-hidden bg-surface-container rounded-lg relative border border-white/5 group-hover:border-primary/30 transition-all duration-300">',
+            '    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-95 group-hover:opacity-100" src="' + prod.img + '" alt="' + prod.title + '" onerror="this.style.display=\'none\';this.parentElement.style.background=\'linear-gradient(135deg,#1a1500,#2a2500)\'">',
+            '    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 opacity-60 group-hover:opacity-30 transition-opacity duration-300"></div>',
+            '    <div class="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-gradient-to-r from-primary/95 to-surface-container-high/95 text-on-primary shadow-[0_0_10px_rgba(242,202,80,0.25)] backdrop-blur-md px-2 py-0.5 rounded text-[8px] sm:text-[10px] font-bold font-label-caps border border-primary/30 flex items-center gap-1"><span class="text-primary font-bold">' + prod.price + '</span></div>',
             '  </div>',
             '  <div class="space-y-1">',
             '    <div class="flex justify-between items-center">',
-            '      <span class="font-label-caps text-[9px] text-primary/60 uppercase tracking-widest">' + prod.categoryText + '</span>',
-            '      <span class="text-[10px] text-on-surface-variant/80 font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-xs text-primary">star</span>' + prod.rating + '</span>',
+            '      <span class="inline-flex items-center gap-1">',
+            '        <span class="w-1 h-1 rounded-full bg-primary/80 animate-pulse"></span>',
+            '        <span class="font-label-caps text-[8px] sm:text-[9px] text-primary/80 uppercase tracking-widest">' + prod.categoryText + '</span>',
+            '      </span>',
+            '      <span class="text-[8px] sm:text-[10px] text-primary bg-white/5 border border-white/10 px-1.5 py-0.5 rounded font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-[10px] sm:text-xs text-primary">star</span>' + prod.rating + '</span>',
             '    </div>',
-            '    <h4 class="font-headline-lg text-lg group-hover:text-primary transition-colors truncate">' + prod.title + '</h4>',
-            '    <p class="font-body-md text-on-surface-variant text-xs line-clamp-2">' + prod.description + '</p>',
+            '    <h4 class="font-headline-lg text-sm sm:text-lg group-hover:text-primary transition-colors truncate h-6 leading-none pt-1">' + prod.title + '</h4>',
+            '    <p class="font-body-md text-on-surface-variant text-[10px] sm:text-xs line-clamp-2 leading-relaxed opacity-70">' + prod.description + '</p>',
             '  </div>',
             '</div>',
-            '<div class="mt-4 pt-3 border-t border-white/5 flex gap-2">',
-            '  <a href="product-details.html?id=' + prod.id + '" class="flex-1 text-center bg-white/5 hover:bg-white/10 text-on-surface-variant hover:text-on-surface py-2 rounded text-xs uppercase font-label-caps transition-colors">Details</a>',
-            '  <a href="' + buyUrl + '"' + targetAttr + ' class="flex-1 text-center bg-primary text-on-primary hover:opacity-90 py-2 rounded text-xs uppercase font-label-caps transition-all">' + buyText + '</a>',
+            '<div class="mt-3 pt-2.5 sm:mt-4 sm:pt-3 border-t border-white/5 flex flex-col gap-1.5 sm:gap-2">',
+            '  <a href="product-details.html?id=' + prod.id + '" class="w-full text-center bg-white/5 border border-white/10 hover:border-primary/40 hover:bg-primary/5 text-on-surface py-1.5 sm:py-2 rounded text-[10px] sm:text-xs uppercase font-label-caps font-semibold transition-all">Details</a>',
+            '  <a href="' + buyUrl + '"' + targetAttr + ' class="w-full text-center bg-gradient-to-r from-primary via-[#ffd75f] to-primary text-on-primary hover:shadow-[0_0_20px_rgba(242,202,80,0.3)] py-1.5 sm:py-2 rounded text-[10px] sm:text-xs uppercase font-label-caps font-semibold transition-all active:scale-98">' + buyText + '</a>',
             '</div>'
           ].join('');
           grid.appendChild(card);

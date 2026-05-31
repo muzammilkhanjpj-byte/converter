@@ -119,12 +119,17 @@
   <!-- Minimal NavBar -->
   <nav class="relative z-10 w-full border-b border-primary/10 bg-surface/20 backdrop-blur-xl">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="code.html" class="gothic-text text-primary text-3xl tracking-tighter hover:opacity-80 transition-opacity" style="text-shadow: rgba(242,202,80,0.3) 0 0 15px;">
+      <a href="code.html" class="gothic-text text-primary text-2xl sm:text-3xl tracking-tighter hover:opacity-80 transition-opacity" style="text-shadow: rgba(242,202,80,0.3) 0 0 15px;">
         Diginatize
       </a>
-      <a href="sign-up.html" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase">
-        Create Account
-      </a>
+      <div class="flex items-center gap-4">
+        <a href="sign-up.html" class="hidden sm:inline-block font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase">
+          Create Account
+        </a>
+        <button id="mobile-menu-toggle" class="md:hidden text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -142,7 +147,7 @@
       </div>
 
       <!-- Glass Card Form -->
-      <div class="glass-card rounded-2xl p-8 shadow-2xl">
+      <div class="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl">
         <!-- Success Alert Container -->
         <div id="signin-success-alert" class="hidden text-center py-3.5 px-3 mb-5 rounded-lg bg-primary/10 border border-primary/20 text-primary text-xs font-semibold">
           Your account has been created. Please check your email and verify your address before logging in.
@@ -371,6 +376,88 @@
     }
   </script>
 
+  <!-- 5. Mobile Drawer -->
+  <div id="mobile-menu-drawer" class="modal-overlay fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex justify-end">
+    <div class="modal-content-container glass-card w-3/4 max-w-sm h-full p-6 border-l border-primary/10 flex flex-col justify-between modal-exclude">
+      <div class="space-y-8">
+        <div class="flex justify-between items-center border-b border-white/5 pb-4">
+          <span class="gothic-text text-3xl text-primary">Diginatize</span>
+          <button id="mobile-menu-close" class="text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-2xl">close</span>
+          </button>
+        </div>
+        <div class="flex flex-col gap-4 font-body-lg text-lg">
+          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="templates.html">Templates</a>
+          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="ai-reels.html">AI Reels</a>
+          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="courses.html">Courses</a>
+          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="other.html">Other</a>
+        </div>
+      </div>
+
+      <!-- Mobile Drawer Footer -->
+      <div class="border-t border-white/5 pt-5 space-y-3">
+        <a href="sign-up.html" class="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-on-surface border border-primary/20 hover:border-primary/40 py-3 font-label-caps text-label-caps uppercase rounded transition-all" style="text-decoration:none;">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Modal show/hide transitions */
+    .modal-overlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content-container {
+      transform: scale(0.95) translateY(20px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.active .modal-content-container {
+      transform: scale(1) translateY(0);
+    }
+  </style>
+
+  <script>
+    (function() {
+      function openModal(id) {
+        document.getElementById(id).classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      const mobMenuToggle = document.getElementById('mobile-menu-toggle');
+      const mobMenuClose = document.getElementById('mobile-menu-close');
+      
+      if (mobMenuToggle) {
+        mobMenuToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal('mobile-menu-drawer');
+        });
+      }
+      if (mobMenuClose) {
+        mobMenuClose.addEventListener('click', (e) => {
+          e.preventDefault();
+          closeModal('mobile-menu-drawer');
+        });
+      }
+      
+      const drawerOverlay = document.getElementById('mobile-menu-drawer');
+      if (drawerOverlay) {
+        drawerOverlay.addEventListener('click', (e) => {
+          if (e.target === drawerOverlay) {
+            closeModal('mobile-menu-drawer');
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
 
