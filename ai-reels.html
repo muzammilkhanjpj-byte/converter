@@ -38,7 +38,9 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Diginatize AI Reels | Ascend Your Content</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script defer src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700&amp;family=Manrope:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Pirata+One&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
   
@@ -249,7 +251,7 @@
   <!-- Title/Hero Section -->
   <section class="relative pt-20 pb-6 sm:pt-28 sm:pb-8 flex items-center justify-center overflow-hidden border-b border-outline-variant/10">
     <div class="absolute inset-0 z-0">
-      <img alt="Background" class="w-full h-full object-cover opacity-30" src="images/reels.png">
+      <img alt="Background" loading="lazy" class="w-full h-full object-cover opacity-30" src="images/reels.png">
       <div class="absolute inset-0 bg-black/60"></div>
       <div class="absolute bottom-0 left-0 w-full h-32 fog-gradient"></div>
     </div>
@@ -345,7 +347,7 @@
         <span class="material-symbols-outlined text-2xl">close</span>
       </button>
       <div class="w-full md:w-1/2 aspect-[4/5] bg-surface-container relative">
-        <img id="detail-img" src="" class="w-full h-full object-cover opacity-100" alt="Product Image">
+        <img id="detail-img" src="" loading="lazy" class="w-full h-full object-cover opacity-100" alt="Product Image">
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
         <div class="absolute bottom-6 left-6 right-6">
           <span id="detail-badge" class="font-label-caps text-[10px] text-primary bg-primary/10 border border-primary/30 px-3 py-1 rounded-full uppercase tracking-widest">AI Reels</span>

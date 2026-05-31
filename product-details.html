@@ -38,7 +38,9 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Diginatize | Ascend Your Content</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script defer src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700&amp;family=Manrope:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Pirata+One&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
   
@@ -239,7 +241,7 @@
       <!-- LEFT COLUMN: Beautiful High-Resolution Product Artwork Showcase -->
       <div class="w-full lg:w-[60%] flex flex-col gap-6">
         <div class="glass-card rounded-xl overflow-hidden relative border border-primary/15 shadow-2xl aspect-[4/3] bg-surface-container/60">
-          <img id="detail-img" src="" class="w-full h-full object-cover opacity-100 transition-all duration-[20s] animate-hero-zoom" alt="Product Image">
+          <img id="detail-img" src="" loading="lazy" class="w-full h-full object-cover opacity-100 transition-all duration-[20s] animate-hero-zoom" alt="Product Image">
           <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d0c] via-black/20 to-transparent pointer-events-none"></div>
           
           <!-- Floating Category Badge -->

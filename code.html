@@ -38,7 +38,9 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Diginatize Noir | Ascend Your Content</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script defer src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700&amp;family=Manrope:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Pirata+One&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
   
@@ -312,7 +314,7 @@
   <!-- Hero Section -->
   <section class="relative h-screen h-[100dvh] w-full flex items-center justify-center overflow-hidden bg-black">
     <div class="absolute inset-0 z-0 overflow-hidden">
-      <video autoplay muted loop playsinline poster="https://lh3.googleusercontent.com/aida-public/AB6AXuDcv_73cUXvm2ojysDmdbZTYSA7V7inmhvZtvbdUpoEhUZTNU4Y_wJgNxD9micN9q24vkqsZRqou0nCL_tu0aqfawNvKxE6Mc4f4F2fcb3nOKfIJ3wJUw6mmM-Xq3d9QbQDaHbh5GmclbmuXxLPWkLWDkg9FE3CsdD171Dma_LgeVHOKg-0Hyk8gYgXZ13BJZUMqGoJhpSysWWXFi3WbTRcfEPFpQazRfVrKYPM26gPGQqr6EScbaafiZ4qFps1DMrDY5VIChWwsnwg" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-none object-cover opacity-75 md:opacity-60">
+      <video autoplay muted loop playsinline preload="metadata" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='9' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='%23000'/%3E%3C/svg%3E" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-none object-cover opacity-75 md:opacity-60">
         <source src="pop.mp4" type="video/mp4">
       </video>
       <div class="absolute inset-0 bg-black/35 md:bg-black/50"></div>
@@ -354,7 +356,7 @@
             <div class="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 bg-black/75 backdrop-blur-md px-2 py-0.5 sm:px-3 sm:py-1 rounded border border-primary/30 text-[8px] sm:text-[9px] font-bold font-label-caps tracking-widest text-primary uppercase">
               Mastery
             </div>
-            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0 opacity-75 group-hover:opacity-100" src="images/templates.png" alt="Templates">
+            <img loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0 opacity-75 group-hover:opacity-100" src="images/templates.png" alt="Templates">
           </div>
           <div class="space-y-1 relative z-10">
             <h3 class="gothic-text text-2xl sm:text-3xl text-on-surface group-hover:text-primary transition-colors tracking-wider">Templates</h3>
@@ -374,7 +376,7 @@
             <div class="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 bg-black/75 backdrop-blur-md px-2 py-0.5 sm:px-3 sm:py-1 rounded border border-primary/30 text-[8px] sm:text-[9px] font-bold font-label-caps tracking-widest text-primary uppercase">
               Automation
             </div>
-            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0 opacity-75 group-hover:opacity-100" src="images/reels.png" alt="AI Reels">
+            <img loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0 opacity-75 group-hover:opacity-100" src="images/reels.png" alt="AI Reels">
           </div>
           <div class="space-y-1 relative z-10">
             <h3 class="gothic-text text-2xl sm:text-3xl text-on-surface group-hover:text-primary transition-colors tracking-wider">AI Reels</h3>
@@ -394,7 +396,7 @@
             <div class="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 bg-black/75 backdrop-blur-md px-2 py-0.5 sm:px-3 sm:py-1 rounded border border-primary/30 text-[8px] sm:text-[9px] font-bold font-label-caps tracking-widest text-primary uppercase">
               Foundations
             </div>
-            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0 opacity-75 group-hover:opacity-100" src="images/assets.png" alt="Creative Assets">
+            <img loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0 opacity-75 group-hover:opacity-100" src="images/assets.png" alt="Creative Assets">
           </div>
           <div class="space-y-1 relative z-10">
             <h3 class="gothic-text text-2xl sm:text-3xl text-on-surface group-hover:text-primary transition-colors tracking-wider">Creative Assets</h3>
@@ -425,7 +427,7 @@
         <div class="flex flex-col md:flex-row items-center glass-card rounded-xl p-6 md:p-10 relative overflow-visible transform md:translate-x-[-10%] transition-all duration-1000 opacity-100">
           <div class="relative -mt-16 md:mt-0 md:-ml-20 mb-4 md:mb-0 shrink-0">
             <div class="w-24 h-24 md:w-48 md:h-48 overflow-hidden border-2 border-primary/20 bg-surface-container" style="border-radius: 9999px;">
-              <img alt="Alex Rivera" class="w-full h-full object-cover" src="images/alex.png">
+              <img alt="Alex Rivera" loading="lazy" class="w-full h-full object-cover" src="images/alex.png">
             </div>
           </div>
           <div class="text-center md:text-left md:pl-10 space-y-3 md:space-y-4">
@@ -443,7 +445,7 @@
         <div class="flex flex-col md:flex-row items-center glass-card rounded-xl p-6 md:p-10 relative overflow-visible transform md:translate-x-[10%] transition-all duration-1000 opacity-100">
           <div class="relative -mt-16 md:mt-0 md:-ml-20 mb-4 md:mb-0 shrink-0 md:order-last md:-mr-20 md:ml-0">
             <div class="w-24 h-24 md:w-48 md:h-48 overflow-hidden border-2 border-primary/20 bg-surface-container" style="border-radius: 9999px;">
-              <img alt="Sarah Chen" class="w-full h-full object-cover" src="images/sarah.png">
+              <img alt="Sarah Chen" loading="lazy" class="w-full h-full object-cover" src="images/sarah.png">
             </div>
           </div>
           <div class="text-center md:text-right md:pr-10 space-y-3 md:space-y-4 flex-1">
@@ -461,7 +463,7 @@
         <div class="flex flex-col md:flex-row items-center glass-card rounded-xl p-6 md:p-10 relative overflow-visible transform md:translate-x-[-10%] transition-all duration-1000 opacity-100">
           <div class="relative -mt-16 md:mt-0 md:-ml-20 mb-4 md:mb-0 shrink-0">
             <div class="w-24 h-24 md:w-48 md:h-48 overflow-hidden border-2 border-primary/20 bg-surface-container" style="border-radius: 9999px;">
-              <img alt="Marcus Thorne" class="w-full h-full object-cover" src="images/marcus.png">
+              <img alt="Marcus Thorne" loading="lazy" class="w-full h-full object-cover" src="images/marcus.png">
             </div>
           </div>
           <div class="text-center md:text-left md:pl-10 space-y-3 md:space-y-4">
@@ -578,7 +580,7 @@
 
       <!-- Aspect Image container -->
       <div class="w-full md:w-1/2 aspect-[4/5] bg-surface-container relative">
-        <img id="detail-img" src="" class="w-full h-full object-cover grayscale opacity-90" alt="Product Image">
+        <img id="detail-img" src="" loading="lazy" class="w-full h-full object-cover grayscale opacity-90" alt="Product Image">
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent pointer-events-none"></div>
         <div class="absolute bottom-6 left-6 right-6">
           <span id="detail-badge" class="font-label-caps text-[10px] text-primary bg-primary/10 border border-primary/30 px-3 py-1 rounded-full uppercase tracking-widest">Category</span>
