@@ -4,9 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Privacy Policy | Diginatize</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <script defer src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700&amp;family=Manrope:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Pirata+One&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
   
@@ -128,8 +126,8 @@
   <!-- TopNavBar -->
   <nav class="fixed top-0 w-full z-50 bg-surface/30 backdrop-blur-xl border-b border-primary/10 shadow-primary/5 shadow-2xl">
     <div class="flex justify-between items-center max-w-7xl mx-auto px-gutter py-4">
-      <div id="nav-brand-logo" onclick="window.location.href='code.html'" class="text-primary cursor-pointer text-2xl sm:text-3xl md:text-4xl gothic-text tracking-tighter" style="text-shadow: rgba(242, 202, 80, 0.3) 0px 0px 15px; display: flex; align-items: center; gap: 12px;">
-        <svg class="h-8 w-8" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#f2ca50" stroke-width="1.5"/><text x="16" y="21" text-anchor="middle" fill="#f2ca50" font-family="serif" font-size="18" font-weight="bold">D</text></svg>
+      <div id="nav-brand-logo" onclick="window.location.href='code.html'" class="text-primary cursor-pointer text-4xl gothic-text tracking-tighter" style="text-shadow: rgba(242, 202, 80, 0.3) 0px 0px 15px; display: flex; align-items: center; gap: 12px;">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrblYK1ah_cPjxJ7CmVRq0ZT-alo9KXSa0Q0UFgUglAmYy52UdEtI_3qdDRujGz1y0e0opWRzS8JrO2qQaCJUUaEh6LUOuHyVkhy-zQoEsNlDKaf0HD1CspJXljMoUcH9MaQAf6Nsxvd-uXsmPko5rI_ANN48eJAqCCeGQ_6K_exa-aPtLFwVdYobeL-9LsOWP5PVDzrdnyO0AQWlFJPzVPHuuPf25VdLBiqTcjXC6lWCO2Nu091g929gLaoIzaOTkrScmAgrTryob" alt="Diginatize Logo" class="h-8 w-auto object-contain rounded-full border border-primary/50 p-0.5">
         <span class="">Diginatize</span>
       </div>
       
@@ -141,18 +139,17 @@
       </div>
       
       <div class="flex gap-4 items-center">
-        <button onclick="window.location.href='code.html'" class="bg-primary text-on-primary px-6 py-2 font-label-caps text-label-caps uppercase scale-95 active:scale-90 transition-transform glow-hover hidden md:inline-block">Home</button>
-        <button id="mobile-menu-toggle" class="md:hidden text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded">
-          <span class="material-symbols-outlined text-3xl">menu</span>
-        </button>
+        <button onclick="window.location.href='code.html'" class="bg-primary text-on-primary px-6 py-2 font-label-caps text-label-caps uppercase scale-95 active:scale-90 transition-transform glow-hover">Home</button>
       </div>
     </div>
   </nav>
 
   <!-- Title/Hero Section -->
   <section class="relative pt-32 pb-16 flex items-center justify-center overflow-hidden border-b border-outline-variant/10">
-    <div class="absolute inset-0 z-0 overflow-hidden bg-black">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcv_73cUXvm2ojysDmdbZTYSA7V7inmhvZtvbdUpoEhUZTNU4Y_wJgNxD9micN9q24vkqsZRqou0nCL_tu0aqfawNvKxE6Mc4f4F2fcb3nOKfIJ3wJUw6mmM-Xq3d9QbQDaHbh5GmclbmuXxLPWkLWDkg9FE3CsdD171Dma_LgeVHOKg-0Hyk8gYgXZ13BJZUMqGoJhpSysWWXFi3WbTRcfEPFpQazRfVrKYPM26gPGQqr6EScbaafiZ4qFps1DMrDY5VIChWwsnwg" loading="lazy" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-none object-cover opacity-30" alt="Atmospheric background">
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <video autoplay muted loop playsinline class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-none object-cover opacity-30">
+        <source src="pop.mp4" type="video/mp4">
+      </video>
       <div class="absolute inset-0 bg-black/60"></div>
       <div class="absolute bottom-0 left-0 w-full h-32 fog-gradient"></div>
     </div>
@@ -230,87 +227,6 @@
     </div>
   </footer>
 
-  <!-- 5. Mobile Drawer -->
-  <div id="mobile-menu-drawer" class="modal-overlay fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex justify-end">
-    <div class="modal-content-container glass-card w-3/4 max-w-sm h-full p-6 border-l border-primary/10 flex flex-col justify-between modal-exclude">
-      <div class="space-y-8">
-        <div class="flex justify-between items-center border-b border-white/5 pb-4">
-          <span class="gothic-text text-3xl text-primary">Diginatize</span>
-          <button id="mobile-menu-close" class="text-on-surface-variant hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-2xl">close</span>
-          </button>
-        </div>
-        <div class="flex flex-col gap-4 font-body-lg text-lg">
-          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="templates.html">Templates</a>
-          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="ai-reels.html">AI Reels</a>
-          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="courses.html">Courses</a>
-          <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 hover:bg-white/5 rounded transition-all" href="other.html">Other</a>
-        </div>
-      </div>
-
-      <!-- Mobile Drawer Footer -->
-      <div class="border-t border-white/5 pt-5 space-y-3">
-        <a href="sign-in.html" class="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-on-surface border border-primary/20 hover:border-primary/40 py-3 font-label-caps text-label-caps uppercase rounded transition-all" style="text-decoration:none;"><span class="material-symbols-outlined" style="font-size:16px;">lock_open</span>Login</a>
-      </div>
-    </div>
-  </div>
-
-  <style>
-    /* Modal show/hide transitions */
-    .modal-overlay {
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .modal-content-container {
-      transform: scale(0.95) translateY(20px);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .modal-overlay.active .modal-content-container {
-      transform: scale(1) translateY(0);
-    }
-  </style>
-
-  <script>
-    (function() {
-      function openModal(id) {
-        document.getElementById(id).classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeModal(id) {
-        document.getElementById(id).classList.remove('active');
-        document.body.style.overflow = '';
-      }
-
-      const mobMenuToggle = document.getElementById('mobile-menu-toggle');
-      const mobMenuClose = document.getElementById('mobile-menu-close');
-      
-      if (mobMenuToggle) {
-        mobMenuToggle.addEventListener('click', (e) => {
-          e.preventDefault();
-          openModal('mobile-menu-drawer');
-        });
-      }
-      if (mobMenuClose) {
-        mobMenuClose.addEventListener('click', (e) => {
-          e.preventDefault();
-          closeModal('mobile-menu-drawer');
-        });
-      }
-      
-      const drawerOverlay = document.getElementById('mobile-menu-drawer');
-      if (drawerOverlay) {
-        drawerOverlay.addEventListener('click', (e) => {
-          if (e.target === drawerOverlay) {
-            closeModal('mobile-menu-drawer');
-          }
-        });
-      }
-    })();
-  </script>
 </body>
 </html>
+
